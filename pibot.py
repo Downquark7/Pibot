@@ -1,13 +1,14 @@
 import numpy as np
-import copy
-import cv
+#import copy
+#import cv
 import cv2
 import time
-import os
-import StringIO
+#import os
+#import StringIO
+
 import evdev
 import ev3dev.auto as ev3
-import time
+#import time
 
 side = 0
 w=80
