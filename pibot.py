@@ -5,33 +5,72 @@ import cv2
 import time
 import os
 import StringIO
-from BrickPi import *   #import BrickPi.py file to use BrickPi operations
-import threading
-os.system('sudo modprobe bcm2835-v4l2')
+import evdev
+import ev3dev.auto as ev3
+import time
+
 side = 0
 w=80
 h=60
 turning_rate = 60
 running = True
 
-BrickPiSetup()  # setup the serial port for communication
-BrickPi.MotorEnable[PORT_A] = 1 #Enable the Motor A
-BrickPi.MotorEnable[PORT_D] = 1 #Enable the Motor D
-#This thread is used for keeping the motors running
-class myThread (threading.Thread):
-    def __init__(self, threadID, name, counter):
-        threading.Thread.__init__(self)
-        self.threadID = threadID
-        self.name = name
-        self.counter = counter
-    def run(self):
-        while running:
-            BrickPiUpdateValues()       # Ask BrickPi to update values for senso
-#            time.sleep(.1)              # sleep for 200 ms
+def clamp(n, (minn, maxn)):
+    """
+    Given a number and a range, return the number, or the extreme it is closest to.
+    :param n: number
+    :return: number
+    """
+    return max(min(maxn, n), minn)
 
-thread1 = myThread(1, "Thread-1", 1)            #Setup and start the thread
-thread1.setDaemon(True)
-thread1.start()
+
+def scale(val, src, dst):
+    """
+    Scale the given value from the scale of src to the scale of dst.
+    val: float or int
+    src: tuple
+    dst: tuple
+    example: print scale(99, (0.0, 99.0), (-1.0, +1.0))
+    """
+    return (float(val - src[0]) / (src[1] - src[0])) * (dst[1] - dst[0]) + dst[0]
+
+def scalestick(value):
+    return scale(value,(0,255),(-100,100))
+
+def dc_clamp(value):
+    return clamp(value,(-100,100))
+
+left_speed = 0
+right_speed = 0
+#lift_speed = 0
+#other_speed = 0
+running = True
+
+class MotorThread(threading.Thread):
+    def __init__(self):
+        #self.a_motor = ev3.LargeMotor(ev3.OUTPUT_A)
+        self.b_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+        self.c_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+        #self.d_motor = ev3.MediumMotor(ev3.OUTPUT_D)
+        threading.Thread.__init__(self)
+
+    def run(self):
+        print "Engines running!"
+        while running:
+            #self.a_motor.run_forever(duty_cycle_sp = dc_clamp(lift_speed))
+            self.b_motor.run_forever(duty_cycle_sp = dc_clamp(left_speed))
+            self.c_motor.run_forever(duty_cycle_sp = dc_clamp(right_speed))
+            #self.d_motor.run_forever(duty_cycle_sp = dc_clamp(other_speed))
+
+        #self.a_motor.stop()
+        self.b_motor.stop()
+        self.c_motor.stop()
+        #self.d_motor.stop()
+if __name__ == "__main__":
+    motor_thread = MotorThread()
+    motor_thread.setDaemon(True)
+    motor_thread.start()
+
 
 # This sets up the video capture
 cap = cv2.VideoCapture(0)
@@ -106,11 +145,15 @@ while True:
                 side = 1
             L_motor_speed=max(0,min(170+(direction*turning_rate/w),255))
             R_motor_speed=max(0,min(170-(direction*turning_rate/w),255))
-        BrickPi.MotorSpeed[PORT_A] = L_motor_speed
-        BrickPi.MotorSpeed[PORT_D] = R_motor_speed
+            right_speed = scalestick(R_motor_speed)
+            left_speed = scalestick(L_motor_speed)
+            
+            
         found = False
     except KeyboardInterrupt:
         break
     key_pressed = cv2.waitKey(33)
     if key_pressed ==27:
+        running = False
+        time.sleep(1)
         break
