@@ -15,7 +15,7 @@ import threading
 side = 0
 w=80
 h=60
-turning_rate = 60
+turning_rate = 20
 running = True
 L_motor_speed=0
 R_motor_speed=0
@@ -153,8 +153,8 @@ while True:
                 side = 0
             else:
                 side = 1
-            L_motor_speed=(40+direction*turning_rate/w)
-            R_motor_speed=(40-direction*turning_rate/w)
+            L_motor_speed=(50+direction*turning_rate/w)
+            R_motor_speed=(50-direction*turning_rate/w)
             print("found; direction=",direction,"turning_rate",turning_rate,"w",w)
             
         found = False
