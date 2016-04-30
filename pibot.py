@@ -54,6 +54,7 @@ class MotorThread(threading.Thread):
         self.b_motor = ev3.LargeMotor(ev3.OUTPUT_B)
         self.c_motor = ev3.LargeMotor(ev3.OUTPUT_C)
         #self.d_motor = ev3.MediumMotor(ev3.OUTPUT_D)
+        time.sleep(1)
         threading.Thread.__init__(self)
     
     def run(self):
@@ -88,6 +89,7 @@ while True:
     try:
         found = False
         ret, image = cap.read()
+        print("ret=",ret)
         image = cv2.flip(image,-1)
         #image2 = copy.deepcopy(image) 
         #image2 = cv2.cvtColor(image2,cv2.COLOR_RGB2BGR)
