@@ -11,6 +11,7 @@ import ev3dev.auto as ev3
 import threading
 #import time
 
+
 side = 0
 w=80
 h=60
@@ -39,7 +40,7 @@ def scale(val, src, dst):
     return (float(val - src[0]) / (src[1] - src[0])) * (dst[1] - dst[0]) + dst[0]
 
 def scalestick(value):
-    return scale(value,(-100,100),(-100,100))
+    return scale(value,(-100,100),(-50,50))
 
 def dc_clamp(value):
     return clamp(value,(-100,100))
@@ -66,7 +67,6 @@ class MotorThread(threading.Thread):
             self.b_motor.run_forever(duty_cycle_sp = dc_clamp(scalestick(L_motor_speed)))
             self.c_motor.run_forever(duty_cycle_sp = dc_clamp(scalestick(R_motor_speed)))
             #self.d_motor.run_forever(duty_cycle_sp = dc_clamp(other_speed))
-            time.sleep(1)
             print("motor update: ",dc_clamp(scalestick(L_motor_speed))," | ",dc_clamp(scalestick(R_motor_speed)))
             print("motor_speeds: ",L_motor_speed," | ",R_motor_speed)
         
