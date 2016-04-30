@@ -15,7 +15,7 @@ import threading
 side = 0
 w=80
 h=60
-turning_rate = 30
+turning_rate = 60
 running = True
 L_motor_speed=0
 R_motor_speed=0
@@ -40,7 +40,7 @@ def scale(val, src, dst):
     return (float(val - src[0]) / (src[1] - src[0])) * (dst[1] - dst[0]) + dst[0]
 
 def scalestick(value):
-    return scale(value,(-100,100),(-75,75))
+    return scale(value,(-100,100),(-50,50))
 
 def dc_clamp(value):
     return clamp(value,(-100,100))
