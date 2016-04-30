@@ -131,18 +131,18 @@ while True:
         if not found:
             if side == 0:
                 L_motor_speed=-70
-                R_motor_speed=70
+                R_motor_speed=
             else:
-                L_motor_speed=70
+                L_motor_speed=0
                 R_motor_speed=-70
         elif area > 2000:
             direction = blob_x -w/2
             if direction < -w/4:
                 L_motor_speed=-80
-                R_motor_speed=80
+                R_motor_speed=0
                 pass
             elif direction > w/4:
-                L_motor_speed=80
+                L_motor_speed=0
                 R_motor_speed=-80
             else:
                 L_motor_speed=0
