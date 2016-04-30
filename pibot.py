@@ -67,7 +67,8 @@ class MotorThread(threading.Thread):
             self.c_motor.run_forever(duty_cycle_sp = dc_clamp(scalestick(R_motor_speed)))
             #self.d_motor.run_forever(duty_cycle_sp = dc_clamp(other_speed))
             time.sleep(1)
-            print("motor update: ",left_speed," | ",right_speed)
+            print("motor update: ",dc_clamp(scalestick(L_motor_speed))," | ",dc_clamp(scalestick(R_motor_speed)))
+            print("motor_speeds: ",L_motor_speed," | ",R_motor_speed)
         
         #self.a_motor.stop()
         self.b_motor.stop()
@@ -96,7 +97,6 @@ while True:
         #image2 = copy.deepcopy(image) 
         #image2 = cv2.cvtColor(image2,cv2.COLOR_RGB2BGR)
         binary = cv2.GaussianBlur(image,(5,5),0)
-        print(binary)
         binary = cv2.cvtColor(binary,cv2.COLOR_BGR2HSV)
         lower_pink = np.array([30,50,50])
         upper_pink = np.array([300,255,200])
