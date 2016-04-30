@@ -99,7 +99,7 @@ while True:
         #image2 = cv2.cvtColor(image2,cv2.COLOR_RGB2BGR)
         binary = cv2.GaussianBlur(image,(5,5),0)
         binary = cv2.cvtColor(binary,cv2.COLOR_BGR2HSV)
-        lower_pink = np.array([65,50,50])
+        lower_pink = np.array([25,50,50])
         upper_pink = np.array([75,255,230])
         kernel = np.ones((5,5),np.uint8)
         mask = cv2.inRange(binary,lower_pink,upper_pink)
