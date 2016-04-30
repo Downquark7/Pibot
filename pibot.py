@@ -15,7 +15,7 @@ import threading
 side = 0
 w=80
 h=60
-turning_rate = 25
+turning_rate = 28
 running = True
 L_motor_speed=0
 R_motor_speed=0
