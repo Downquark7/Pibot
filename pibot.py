@@ -153,7 +153,7 @@ while True:
                 side = 0
             else:
                 side = 1
-            L_motor_speed=(50+direction*turning_rate/w)
+            L_motor_speed=(50-direction*turning_rate/w)
             R_motor_speed=(50+direction*turning_rate/w)
             print("found; direction=",direction,"turning_rate",turning_rate,"w",w)
             
