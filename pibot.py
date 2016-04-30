@@ -61,8 +61,8 @@ class MotorThread(threading.Thread):
         print "Engines running!"
         while running:
             #self.a_motor.run_forever(duty_cycle_sp = dc_clamp(lift_speed))
-            self.b_motor.run_forever(duty_cycle_sp = dc_clamp(scaleStick(L_motor_speed)))
-            self.c_motor.run_forever(duty_cycle_sp = dc_clamp(scaleStick(R_motor_speed)))
+            self.b_motor.run_forever(duty_cycle_sp = dc_clamp(scalestick(L_motor_speed)))
+            self.c_motor.run_forever(duty_cycle_sp = dc_clamp(scalestick(R_motor_speed)))
             #self.d_motor.run_forever(duty_cycle_sp = dc_clamp(other_speed))
             time.sleep(1)
             print("motor update: ",left_speed," | ",right_speed)
