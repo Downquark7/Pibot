@@ -153,9 +153,9 @@ while True:
                 side = 0
             else:
                 side = 1
-            L_motor_speed=max(0,min(170+(direction*turning_rate/w),255))
-            R_motor_speed=max(0,min(170-(direction*turning_rate/w),255))
-            
+            L_motor_speed=max(0,min(50+(direction*turning_rate/w),100))
+            R_motor_speed=max(0,min(50-(direction*turning_rate/w),100))
+            print("found")
             
         found = False
         print("camera update")
