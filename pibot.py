@@ -40,7 +40,7 @@ def scale(val, src, dst):
     return (float(val - src[0]) / (src[1] - src[0])) * (dst[1] - dst[0]) + dst[0]
 
 def scalestick(value):
-    return scale(value,(-100,100),(-50,50))
+    return scale(value,(-100,100),(-100,100))
 
 def dc_clamp(value):
     return clamp(value,(-100,100))
@@ -99,8 +99,8 @@ while True:
         #image2 = cv2.cvtColor(image2,cv2.COLOR_RGB2BGR)
         binary = cv2.GaussianBlur(image,(5,5),0)
         binary = cv2.cvtColor(binary,cv2.COLOR_BGR2HSV)
-        lower_pink = np.array([20,100,100])
-        upper_pink = np.array([40,200,200])
+        lower_pink = np.array([65,50,50])
+        upper_pink = np.array([75,255,230])
         kernel = np.ones((5,5),np.uint8)
         mask = cv2.inRange(binary,lower_pink,upper_pink)
         mask = cv2.erode(mask,kernel,iterations=1)
