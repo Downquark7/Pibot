@@ -16,6 +16,8 @@ w=80
 h=60
 turning_rate = 60
 running = True
+L_motor_speed=0
+R_motor_speed=0
 
 def clamp(n, (minn, maxn)):
     """
@@ -42,8 +44,8 @@ def scalestick(value):
 def dc_clamp(value):
     return clamp(value,(-100,100))
 
-left_speed = 0
-right_speed = 0
+#left_speed = 0
+#right_speed = 0
 #lift_speed = 0
 #other_speed = 0
 running = True
@@ -90,11 +92,11 @@ while True:
     try:
         found = False
         ret, image = cap.read()
-        print(image)
         image = cv2.flip(image,-1)
         #image2 = copy.deepcopy(image) 
         #image2 = cv2.cvtColor(image2,cv2.COLOR_RGB2BGR)
         binary = cv2.GaussianBlur(image,(5,5),0)
+        print(binary)
         binary = cv2.cvtColor(binary,cv2.COLOR_BGR2HSV)
         lower_pink = np.array([30,50,50])
         upper_pink = np.array([300,255,200])
