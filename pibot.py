@@ -55,7 +55,7 @@ class MotorThread(threading.Thread):
         self.c_motor = ev3.LargeMotor(ev3.OUTPUT_C)
         #self.d_motor = ev3.MediumMotor(ev3.OUTPUT_D)
         threading.Thread.__init__(self)
-
+    
     def run(self):
         print "Engines running!"
         while running:
@@ -63,7 +63,7 @@ class MotorThread(threading.Thread):
             self.b_motor.run_forever(duty_cycle_sp = dc_clamp(left_speed))
             self.c_motor.run_forever(duty_cycle_sp = dc_clamp(right_speed))
             #self.d_motor.run_forever(duty_cycle_sp = dc_clamp(other_speed))
-
+        
         #self.a_motor.stop()
         self.b_motor.stop()
         self.c_motor.stop()
