@@ -8,6 +8,7 @@ import time
 
 import evdev
 import ev3dev.auto as ev3
+import threading
 #import time
 
 side = 0
