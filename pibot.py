@@ -63,11 +63,13 @@ class MotorThread(threading.Thread):
             self.b_motor.run_forever(duty_cycle_sp = dc_clamp(left_speed))
             self.c_motor.run_forever(duty_cycle_sp = dc_clamp(right_speed))
             #self.d_motor.run_forever(duty_cycle_sp = dc_clamp(other_speed))
+            print("motor update")
         
         #self.a_motor.stop()
         self.b_motor.stop()
         self.c_motor.stop()
         #self.d_motor.stop()
+
 if __name__ == "__main__":
     motor_thread = MotorThread()
     motor_thread.setDaemon(True)
@@ -80,7 +82,7 @@ cap.set(3,w)
 cap.set(4,h)
 time.sleep(2)
 #cap.set(15,-80.0)
-
+print(cap)
 # Main loop
 while True:
     try:
