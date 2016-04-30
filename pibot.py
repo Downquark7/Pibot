@@ -64,7 +64,8 @@ class MotorThread(threading.Thread):
             self.b_motor.run_forever(duty_cycle_sp = dc_clamp(left_speed))
             self.c_motor.run_forever(duty_cycle_sp = dc_clamp(right_speed))
             #self.d_motor.run_forever(duty_cycle_sp = dc_clamp(other_speed))
-            print("motor update")
+            time.sleep(1)
+            print("motor update: ",left_speed," | ",right_speed)
         
         #self.a_motor.stop()
         self.b_motor.stop()
@@ -89,7 +90,7 @@ while True:
     try:
         found = False
         ret, image = cap.read()
-        print("ret=",ret)
+        print(image)
         image = cv2.flip(image,-1)
         #image2 = copy.deepcopy(image) 
         #image2 = cv2.cvtColor(image2,cv2.COLOR_RGB2BGR)
