@@ -63,7 +63,6 @@ class MotorThread(threading.Thread):
             self.b_motor.run_forever(duty_cycle_sp = dc_clamp(left_speed))
             self.c_motor.run_forever(duty_cycle_sp = dc_clamp(right_speed))
             #self.d_motor.run_forever(duty_cycle_sp = dc_clamp(other_speed))
-            time.sleep(1)
 
         #self.a_motor.stop()
         self.b_motor.stop()
