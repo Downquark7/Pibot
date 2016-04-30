@@ -153,8 +153,8 @@ while True:
                 side = 0
             else:
                 side = 1
-            L_motor_speed=max(0,min(50+(direction*turning_rate/w),100))
-            R_motor_speed=max(0,min(50-(direction*turning_rate/w),100))
+            L_motor_speed=(direction*turning_rate/w)
+            R_motor_speed=(direction*turning_rate/w)
             print("found")
             
         found = False
