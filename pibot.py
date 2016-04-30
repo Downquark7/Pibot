@@ -63,6 +63,7 @@ class MotorThread(threading.Thread):
             self.b_motor.run_forever(duty_cycle_sp = dc_clamp(left_speed))
             self.c_motor.run_forever(duty_cycle_sp = dc_clamp(right_speed))
             #self.d_motor.run_forever(duty_cycle_sp = dc_clamp(other_speed))
+            time.sleep(1)
 
         #self.a_motor.stop()
         self.b_motor.stop()
@@ -92,7 +93,7 @@ while True:
         binary = cv2.GaussianBlur(image,(5,5),0)
         binary = cv2.cvtColor(binary,cv2.COLOR_BGR2HSV)
         lower_pink = np.array([60,50,50])
-        upper_pink = np.array([110,255,255])
+        upper_pink = np.array([110,255,200])
         kernel = np.ones((5,5),np.uint8)
         mask = cv2.inRange(binary,lower_pink,upper_pink)
         mask = cv2.erode(mask,kernel,iterations=1)
@@ -113,6 +114,7 @@ while True:
                 found=True
                 coords = cv2.moments(contours[largest])
                 blob_x = int(coords['m10']/coords['m00'])
+                print("blob_x= ",blob_x)
                 #blob_y = int(coords['m01']/coords['m00'])
                 #diam = int(np.sqrt(area)/4)
                 #cv2.circle(image,(blob_x,blob_y),diam,(0,255,0),1)
@@ -149,6 +151,7 @@ while True:
             R_motor_speed=max(0,min(170-(direction*turning_rate/w),255))
             right_speed = scalestick(R_motor_speed)
             left_speed = scalestick(L_motor_speed)
+            print("speed= ",left_speed," | ",right_speed)
             
             
         found = False
