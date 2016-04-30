@@ -131,7 +131,7 @@ while True:
         if not found:
             if side == 0:
                 L_motor_speed=-70
-                R_motor_speed=
+                R_motor_speed=0
             else:
                 L_motor_speed=0
                 R_motor_speed=-70
