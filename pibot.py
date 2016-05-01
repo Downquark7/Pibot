@@ -69,7 +69,7 @@ class MotorThread(threading.Thread):
             self.c_motor.run_forever(duty_cycle_sp = dc_clamp(scalestick(R_motor_speed)))
             #self.d_motor.run_forever(duty_cycle_sp = dc_clamp(other_speed))
             time.sleep(0.3)
-            print("motor_speeds: ",L_motor_speed," | ",R_motor_speed)
+            #print("motor_speeds: ",L_motor_speed," | ",R_motor_speed)
         
         #self.a_motor.stop()
         self.b_motor.stop()
@@ -155,10 +155,10 @@ while True:
                 side = 1
             L_motor_speed=(60+direction*turning_rate/w)
             R_motor_speed=(60-direction*turning_rate/w)
-            print("found; direction=",direction,"turning_rate",turning_rate,"w",w)
+            #print("found; direction=",direction,"turning_rate",turning_rate,"w",w)
             
         found = False
-        print("camera update")
+        #print("camera update")
     except KeyboardInterrupt:
         break
     key_pressed = cv2.waitKey(33)
