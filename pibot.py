@@ -99,8 +99,8 @@ while True:
         #image2 = cv2.cvtColor(image2,cv2.COLOR_RGB2BGR)
         binary = cv2.GaussianBlur(image,(5,5),0)
         binary = cv2.cvtColor(binary,cv2.COLOR_BGR2HSV)
-        lower_pink = np.array([25,50,50])
-        upper_pink = np.array([75,255,230])
+        lower_pink = np.array([170,50,50])
+        upper_pink = np.array([180,255,255])
         kernel = np.ones((5,5),np.uint8)
         mask = cv2.inRange(binary,lower_pink,upper_pink)
         mask = cv2.erode(mask,kernel,iterations=1)
@@ -130,20 +130,20 @@ while True:
         
         if not found:
             if side == 0:
-                L_motor_speed=-70
-                R_motor_speed=0
-            else:
                 L_motor_speed=0
-                R_motor_speed=-70
+                R_motor_speed=70
+            else:
+                L_motor_speed=70
+                R_motor_speed=0
         elif area > 2000:
             direction = blob_x -w/2
             if direction < -w/4:
-                L_motor_speed=-80
-                R_motor_speed=0
+                L_motor_speed=0
+                R_motor_speed=80
                 pass
             elif direction > w/4:
-                L_motor_speed=0
-                R_motor_speed=-80
+                L_motor_speed=80
+                R_motor_speed=0
             else:
                 L_motor_speed=0
                 R_motor_speed=0
