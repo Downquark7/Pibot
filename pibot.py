@@ -98,7 +98,7 @@ while True:
     try:
         found = False
         ret, image = cap.read()
-        print image.shape()
+        print image.shape
         #image = cv2.flip(image,-1)
         #image2 = copy.deepcopy(image) 
         #image2 = cv2.cvtColor(image2,cv2.COLOR_RGB2BGR)
