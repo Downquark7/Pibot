@@ -4,6 +4,7 @@ import numpy as np
 import cv2
 import time
 #import os
+#import array
 #import StringIO
 
 import evdev
@@ -127,7 +128,7 @@ while True:
                 blob_x = int(coords['m10']/coords['m00'])
                 blob_y = int(coords['m01']/coords['m00'])
                 diam = int(np.sqrt(area)/4)
-                print(blob_x," ",blob_y," ",diam)
+                print(blob_x,blob_y,diam)
                 #cv2.circle(image,(blob_x,blob_y),diam,(0,255,0),1)
                 #cv2.line(image,(blob_x-2*diam,blob_y),(blob_x+2*diam,blob_y),(0,255,0),1)
                 #cv2.line(image,(blob_x,blob_y-2*diam),(blob_x,blob_y+2*diam),(0,255,0),1)
