@@ -19,6 +19,8 @@ turning_rate = 60
 running = True
 L_motor_speed=0
 R_motor_speed=0
+intergral_gain = 1
+intergral = 0
 
 def clamp(n, (minn, maxn)):
     """
@@ -153,8 +155,9 @@ while True:
                 side = 0
             else:
                 side = 1
-            L_motor_speed=(direction*turning_rate/w)
-            R_motor_speed=(-direction*turning_rate/w)
+            intergral = intergral + intergral_gain * (direction*turning_rate/w)
+            L_motor_speed=(intergral)
+            R_motor_speed=-(intergral)
             #print("found; direction=",direction,"turning_rate",turning_rate,"w",w)
             
         found = False
