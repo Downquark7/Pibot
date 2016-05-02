@@ -12,15 +12,22 @@ import ev3dev.auto as ev3
 import threading
 #import time
 
+spaces = ['',' ']
+for x in range(2,10):
+    spaces[x]=spaces[1]+spaces[x-1]
+
+hashess = ['','#']
+for x in range(2,10):
+    hashes[x]=hashes[1]+hashes[x-1]
 
 side = 0
 w=120
 h=160
 turning_rate = 60
-running = False
+running = True
 L_motor_speed=0
 R_motor_speed=0
-porportional_gain = 0.4
+porportional_gain = 1
 intergral_gain = 0.1
 intergral = 0
 
@@ -126,9 +133,9 @@ while True:
                 found=True
                 coords = cv2.moments(contours[largest])
                 blob_x = int(coords['m10']/coords['m00'])
-                blob_y = int(coords['m01']/coords['m00'])
+                #blob_y = int(coords['m01']/coords['m00'])
                 diam = int(np.sqrt(area)/4)
-                print(blob_x,blob_y,diam)
+                print(blob_x, diam)
                 #cv2.circle(image,(blob_x,blob_y),diam,(0,255,0),1)
                 #cv2.line(image,(blob_x-2*diam,blob_y),(blob_x+2*diam,blob_y),(0,255,0),1)
                 #cv2.line(image,(blob_x,blob_y-2*diam),(blob_x,blob_y+2*diam),(0,255,0),1)
