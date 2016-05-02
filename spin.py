@@ -11,6 +11,8 @@ import threading
 import evdev
 import ev3dev.auto as ev3
 
+L_motor_speed = 0
+R_motor_speed = 0
 
 side = 0
 w=80
