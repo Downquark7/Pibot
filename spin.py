@@ -1,3 +1,4 @@
+waiting = False
 import numpy as np
 #import copy
 #import cv
@@ -17,7 +18,7 @@ h=60
 turning_rate = 60
 running = True
 time_limit=60
-waiting = False
+
 startTime=time.time()
 
 def clamp(n, (minn, maxn)):
