@@ -14,15 +14,20 @@ import threading
 
 
 side = 0
-w=120
-h=160
-turning_rate = 60
+w = 120
+h = 160
+L_motor_speed = 0
+R_motor_speed = 0
+
+
+forward_speed = 0
 running = False
-L_motor_speed=0
-R_motor_speed=0
 porportional_gain = 1
-intergral_gain = 0.1
+intergral_gain = 1
+derivative_gain = 1
+
 intergral = 0
+previous_error = 0
 
 
 def clamp(n, (minn, maxn)):
@@ -160,9 +165,12 @@ while True:
                 side = 0
             else:
                 side = 1
-            intergral = intergral + intergral_gain * (direction*turning_rate/w)
-            L_motor_speed=(intergral + porportional_gain * (direction*turning_rate/w))
-            R_motor_speed=-(intergral + porportional_gain * (direction*turning_rate/w))
+            error = (direction*2/w)
+            intergral = intergral + intergral_gain * error
+            derivative = previous_error - error
+            L_motor_speed=forward_speed + (intergral + porportional_gain * error + derivative_gain * derivative)
+            R_motor_speed=forward_speed - (intergral + porportional_gain * error + derivative_gain * derivative)
+            previous_error = error
             #print("found; direction=",direction,"turning_rate",turning_rate,"w",w)
             
         found = False
