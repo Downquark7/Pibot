@@ -79,7 +79,6 @@ class MotorThread(threading.Thread):
             self.b_motor.run_forever(duty_cycle_sp = dc_clamp(scalestick(L_motor_speed)))
             self.c_motor.run_forever(duty_cycle_sp = dc_clamp(scalestick(R_motor_speed)))
             #self.d_motor.run_forever(duty_cycle_sp = dc_clamp(other_speed))
-            time.sleep(10)
             #print("motor_speeds: ",L_motor_speed," | ",R_motor_speed)
         
         #self.a_motor.stop()
@@ -173,8 +172,6 @@ while True:
             L_motor_speed=forward_speed + (intergral + porportional_gain * error + derivative_gain * derivative)
             R_motor_speed=forward_speed - (intergral + porportional_gain * error + derivative_gain * derivative)
             previous_error = error
-            self.b_motor.run_forever(duty_cycle_sp = dc_clamp(scalestick(L_motor_speed)))
-            self.c_motor.run_forever(duty_cycle_sp = dc_clamp(scalestick(R_motor_speed)))
             ev3.Sound.beep()
             #print("found; direction=",direction,"turning_rate",turning_rate,"w",w)
             
