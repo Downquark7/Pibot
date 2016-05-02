@@ -12,13 +12,6 @@ import ev3dev.auto as ev3
 import threading
 #import time
 
-spaces = ['',' ']
-for x in range(2,10):
-    spaces[x]=spaces[1]+spaces[x-1]
-
-hashess = ['','#']
-for x in range(2,10):
-    hashes[x]=hashes[1]+hashes[x-1]
 
 side = 0
 w=120
