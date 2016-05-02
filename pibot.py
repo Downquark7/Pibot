@@ -40,7 +40,7 @@ def scale(val, src, dst):
     return (float(val - src[0]) / (src[1] - src[0])) * (dst[1] - dst[0]) + dst[0]
 
 def scalestick(value):
-    return scale(value,(-150,150),(-100,100))
+    return scale(value,(-120,120),(-100,100))
 
 def dc_clamp(value):
     return clamp(value,(-100,100))
