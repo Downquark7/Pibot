@@ -18,6 +18,8 @@ w = 120
 h = 160
 L_motor_speed = 0
 R_motor_speed = 0
+speed_70 = 35
+speed_80 = 40
 
 
 forward_speed = 0
@@ -77,7 +79,6 @@ class MotorThread(threading.Thread):
             self.b_motor.run_forever(duty_cycle_sp = dc_clamp(scalestick(L_motor_speed)))
             self.c_motor.run_forever(duty_cycle_sp = dc_clamp(scalestick(R_motor_speed)))
             #self.d_motor.run_forever(duty_cycle_sp = dc_clamp(other_speed))
-            time.sleep(0.2)
             #print("motor_speeds: ",L_motor_speed," | ",R_motor_speed)
         
         #self.a_motor.stop()
@@ -142,20 +143,20 @@ while True:
         if not found:
             intergral = 0
             if side == 0:
-                L_motor_speed=-70
-                R_motor_speed=70
+                L_motor_speed=-speed_70
+                R_motor_speed=speed_70
             else:
-                L_motor_speed=70
-                R_motor_speed=-70
+                L_motor_speed=speed_70
+                R_motor_speed=-speed_70
         elif area > 2000:
             direction = blob_x -w/2
             if direction < -w/4:
-                L_motor_speed=-80
-                R_motor_speed=80
+                L_motor_speed=-speed_80
+                R_motor_speed=speed_80
                 pass
             elif direction > w/4:
-                L_motor_speed=80
-                R_motor_speed=-80
+                L_motor_speed=speed_80
+                R_motor_speed=-speed_80
             else:
                 L_motor_speed=0
                 R_motor_speed=0
