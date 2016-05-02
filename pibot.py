@@ -45,7 +45,7 @@ def scale(val, src, dst):
     return (float(val - src[0]) / (src[1] - src[0])) * (dst[1] - dst[0]) + dst[0]
 
 def scalestick(value):
-    return scale(value,(-120,120),(-100,100))
+    return scale(value,(-100,100),(-100,100))
 
 def dc_clamp(value):
     return clamp(value,(-100,100))
@@ -104,8 +104,8 @@ while True:
         #image2 = cv2.cvtColor(image2,cv2.COLOR_RGB2BGR)
         binary = cv2.GaussianBlur(image,(5,5),0)
         binary = cv2.cvtColor(binary,cv2.COLOR_BGR2HSV)
-        lower_pink = np.array([90,50,50])
-        upper_pink = np.array([110,255,255])
+        lower_pink = np.array([97,50,50])
+        upper_pink = np.array([102,255,255])
         kernel = np.ones((5,5),np.uint8)
         mask = cv2.inRange(binary,lower_pink,upper_pink)
         mask = cv2.erode(mask,kernel,iterations=1)
@@ -126,9 +126,9 @@ while True:
                 found=True
                 coords = cv2.moments(contours[largest])
                 blob_x = int(coords['m10']/coords['m00'])
-                #blob_y = int(coords['m01']/coords['m00'])
+                blob_y = int(coords['m01']/coords['m00'])
                 diam = int(np.sqrt(area)/4)
-                print(blob_x, diam)
+                print(blob_x, blob_y, diam)
                 #cv2.circle(image,(blob_x,blob_y),diam,(0,255,0),1)
                 #cv2.line(image,(blob_x-2*diam,blob_y),(blob_x+2*diam,blob_y),(0,255,0),1)
                 #cv2.line(image,(blob_x,blob_y-2*diam),(blob_x,blob_y+2*diam),(0,255,0),1)
