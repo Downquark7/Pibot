@@ -17,7 +17,7 @@ h=60
 turning_rate = 60
 running = True
 time_limit=60
-waiting = false
+waiting = False
 startTime=time.time()
 
 def clamp(n, (minn, maxn)):
