@@ -19,9 +19,10 @@ turning_rate = 60
 running = True
 L_motor_speed=0
 R_motor_speed=0
-porportional_gain = 0.4
-intergral_gain = 0.1
+porportional_gain = 0
+intergral_gain = 0
 intergral = 0
+
 
 def clamp(n, (minn, maxn)):
     """
@@ -97,6 +98,7 @@ while True:
     try:
         found = False
         ret, image = cap.read()
+        print image.shape()
         #image = cv2.flip(image,-1)
         #image2 = copy.deepcopy(image) 
         #image2 = cv2.cvtColor(image2,cv2.COLOR_RGB2BGR)
@@ -124,8 +126,9 @@ while True:
                 found=True
                 coords = cv2.moments(contours[largest])
                 blob_x = int(coords['m10']/coords['m00'])
-                #blob_y = int(coords['m01']/coords['m00'])
-                #diam = int(np.sqrt(area)/4)
+                blob_y = int(coords['m01']/coords['m00'])
+                diam = int(np.sqrt(area)/4)
+                print(blob_x," ",blob_y," ",diam)
                 #cv2.circle(image,(blob_x,blob_y),diam,(0,255,0),1)
                 #cv2.line(image,(blob_x-2*diam,blob_y),(blob_x+2*diam,blob_y),(0,255,0),1)
                 #cv2.line(image,(blob_x,blob_y-2*diam),(blob_x,blob_y+2*diam),(0,255,0),1)
