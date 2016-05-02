@@ -53,7 +53,6 @@ def dc_clamp(value):
 #right_speed = 0
 #lift_speed = 0
 #other_speed = 0
-running = True
 
 
 class MotorThread(threading.Thread):
