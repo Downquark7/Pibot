@@ -19,7 +19,7 @@ turning_rate = 60
 running = True
 L_motor_speed=0
 R_motor_speed=0
-porportianal_gain = 0.4
+porportional_gain = 0.4
 intergral_gain = 0.1
 intergral = 0
 
