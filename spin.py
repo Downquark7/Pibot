@@ -1,39 +1,84 @@
 import numpy as np
-import copy
-import cv
+#import copy
+#import cv
 import cv2
 import time
-import os
-import StringIO
-from BrickPi import *   #import BrickPi.py file to use BrickPi operations
+#import os
+#import StringIO
+#from BrickPi import *   #import BrickPi.py file to use BrickPi operations
 import threading
-os.system('sudo modprobe bcm2835-v4l2')
+import evdev
+import ev3dev.auto as ev3
+
+
 side = 0
 w=80
 h=60
 turning_rate = 60
 running = True
 time_limit=60
+waiting = false
 startTime=time.time()
 
-BrickPiSetup()  # setup the serial port for communication
-BrickPi.MotorEnable[PORT_A] = 1 #Enable the Motor A
-BrickPi.MotorEnable[PORT_D] = 1 #Enable the Motor D
-#This thread is used for keeping the motors running
-class myThread (threading.Thread):
-    def __init__(self, threadID, name, counter):
-        threading.Thread.__init__(self)
-        self.threadID = threadID
-        self.name = name
-        self.counter = counter
-    def run(self):
-        while running and (time.time()<startTime+time_limit):
-            BrickPiUpdateValues()       # Ask BrickPi to update values for senso
-#            time.sleep(.1)              # sleep for 200 ms
+def clamp(n, (minn, maxn)):
+    """
+    Given a number and a range, return the number, or the extreme it is closest to.
+    :param n: number
+    :return: number
+    """
+    return max(min(maxn, n), minn)
 
-thread1 = myThread(1, "Thread-1", 1)            #Setup and start the thread
-thread1.setDaemon(True)
-thread1.start()
+
+def scale(val, src, dst):
+    """
+    Scale the given value from the scale of src to the scale of dst.
+    val: float or int
+    src: tuple
+    dst: tuple
+    example: print scale(99, (0.0, 99.0), (-1.0, +1.0))
+    """
+    return (float(val - src[0]) / (src[1] - src[0])) * (dst[1] - dst[0]) + dst[0]
+
+def scalestick(value):
+    return scale(value,(-255,255),(-100,100))
+
+def dc_clamp(value):
+    return clamp(value,(-100,100))
+
+class MotorThread(threading.Thread):
+    def __init__(self):
+        #self.a_motor = ev3.LargeMotor(ev3.OUTPUT_A)
+        self.b_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+        self.c_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+        #self.d_motor = ev3.MediumMotor(ev3.OUTPUT_D)
+        time.sleep(1)
+        threading.Thread.__init__(self)
+    
+    def run(self):
+        print "Engines running!"
+        while running:
+            while waiting:
+                time.sleep(0.1)
+            waiting = true
+            #self.a_motor.run_forever(duty_cycle_sp = dc_clamp(lift_speed))
+            self.b_motor.run_forever(duty_cycle_sp = dc_clamp(scalestick(L_motor_speed)))
+            self.c_motor.run_forever(duty_cycle_sp = dc_clamp(scalestick(R_motor_speed)))
+            #self.d_motor.run_forever(duty_cycle_sp = dc_clamp(other_speed))
+            #print("motor_speeds: ",L_motor_speed," | ",R_motor_speed)
+        
+        #self.a_motor.stop()
+        self.b_motor.stop()
+        self.c_motor.stop()
+        #self.d_motor.stop()
+
+if __name__ == "__main__":
+    motor_thread = MotorThread()
+    motor_thread.setDaemon(True)
+    motor_thread.start()
+
+
+
+
 
 # This sets up the video capture
 cap = cv2.VideoCapture(0)
@@ -48,7 +93,8 @@ while True and (time.time()<startTime+time_limit):
     try:
         found = False
         ret, image = cap.read()
-        image = cv2.flip(image,-1)
+        print image.shape()
+        #image = cv2.flip(image,-1)
         #image2 = copy.deepcopy(image) 
         #image2 = cv2.cvtColor(image2,cv2.COLOR_RGB2BGR)
         binary = cv2.GaussianBlur(image,(5,5),0)
@@ -74,9 +120,12 @@ while True and (time.time()<startTime+time_limit):
             if area > 100:
                 found=True
                 coords = cv2.moments(contours[largest])
+                print "found"
+                print coords
                 blob_x = int(coords['m10']/coords['m00'])
-                #blob_y = int(coords['m01']/coords['m00'])
-                #diam = int(np.sqrt(area)/4)
+                blob_y = int(coords['m01']/coords['m00'])
+                diam = int(np.sqrt(area)/4)
+                print(blob_x, blob_y, diam)
                 #cv2.circle(image,(blob_x,blob_y),diam,(0,255,0),1)
                 #cv2.line(image,(blob_x-2*diam,blob_y),(blob_x+2*diam,blob_y),(0,255,0),1)
                 #cv2.line(image,(blob_x,blob_y-2*diam),(blob_x,blob_y+2*diam),(0,255,0),1)
@@ -106,8 +155,7 @@ while True and (time.time()<startTime+time_limit):
                 side = 1
             L_motor_speed=220*side*direction/w
             R_motor_speed=-220*side*direction/w
-        BrickPi.MotorSpeed[PORT_A] = L_motor_speed
-        BrickPi.MotorSpeed[PORT_D] = R_motor_speed
+        waiting = false
         found = False
     except KeyboardInterrupt:
         break
@@ -115,4 +163,8 @@ while True and (time.time()<startTime+time_limit):
     if key_pressed ==27:
         break
 cap.release()
+waiting = false
+running = false
+time.sleep(1)
+
 
