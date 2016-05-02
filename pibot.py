@@ -131,7 +131,7 @@ while True:
             #cv2.drawContours(image,contours,largest,(255,0,0),3)
         
         if not found:
-        intergral = 0
+            intergral = 0
             if side == 0:
                 L_motor_speed=-70
                 R_motor_speed=70
