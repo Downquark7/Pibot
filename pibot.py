@@ -16,8 +16,7 @@ side = 0
 w=80
 h=60
 turning_rate = 60
-running = True
-motoring = False
+running = False
 L_motor_speed=0
 R_motor_speed=0
 porportional_gain = 0.4
@@ -70,12 +69,8 @@ class MotorThread(threading.Thread):
         print "Engines running!"
         while running:
             #self.a_motor.run_forever(duty_cycle_sp = dc_clamp(lift_speed))
-            if motoring:
-                self.b_motor.run_forever(duty_cycle_sp = dc_clamp(scalestick(L_motor_speed)))
-                self.c_motor.run_forever(duty_cycle_sp = dc_clamp(scalestick(R_motor_speed)))
-            else:
-                self.b_motor.run_forever(duty_cycle_sp = 0
-                self.c_motor.run_forever(duty_cycle_sp = 0
+            self.b_motor.run_forever(duty_cycle_sp = dc_clamp(scalestick(L_motor_speed)))
+            self.c_motor.run_forever(duty_cycle_sp = dc_clamp(scalestick(R_motor_speed)))
             #self.d_motor.run_forever(duty_cycle_sp = dc_clamp(other_speed))
             time.sleep(0.2)
             #print("motor_speeds: ",L_motor_speed," | ",R_motor_speed)
