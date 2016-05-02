@@ -19,7 +19,7 @@ turning_rate = 60
 running = True
 L_motor_speed=0
 R_motor_speed=0
-intergral_gain = 1
+intergral_gain = 0.1
 intergral = 0
 
 def clamp(n, (minn, maxn)):
