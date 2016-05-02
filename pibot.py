@@ -21,7 +21,7 @@ R_motor_speed = 0
 
 
 forward_speed = 0
-running = False
+running = True
 porportional_gain = 1
 intergral_gain = 1
 derivative_gain = 1
