@@ -15,7 +15,7 @@ import threading
 side = 0
 w=80
 h=60
-turning_rate = 28
+turning_rate = 60
 running = True
 L_motor_speed=0
 R_motor_speed=0
@@ -130,20 +130,20 @@ while True:
         
         if not found:
             if side == 0:
-                L_motor_speed=0
+                L_motor_speed=-70
                 R_motor_speed=70
             else:
                 L_motor_speed=70
-                R_motor_speed=0
+                R_motor_speed=-70
         elif area > 2000:
             direction = blob_x -w/2
             if direction < -w/4:
-                L_motor_speed=0
+                L_motor_speed=-80
                 R_motor_speed=80
                 pass
             elif direction > w/4:
                 L_motor_speed=80
-                R_motor_speed=0
+                R_motor_speed=-80
             else:
                 L_motor_speed=0
                 R_motor_speed=0
@@ -153,8 +153,8 @@ while True:
                 side = 0
             else:
                 side = 1
-            L_motor_speed=(60+direction*turning_rate/w)
-            R_motor_speed=(60-direction*turning_rate/w)
+            L_motor_speed=(direction*turning_rate/w)
+            R_motor_speed=(-direction*turning_rate/w)
             #print("found; direction=",direction,"turning_rate",turning_rate,"w",w)
             
         found = False
