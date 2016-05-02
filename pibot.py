@@ -19,6 +19,7 @@ turning_rate = 60
 running = True
 L_motor_speed=0
 R_motor_speed=0
+porportianal_gain = 0.4
 intergral_gain = 0.1
 intergral = 0
 
@@ -157,8 +158,8 @@ while True:
             else:
                 side = 1
             intergral = intergral + intergral_gain * (direction*turning_rate/w)
-            L_motor_speed=(intergral)
-            R_motor_speed=-(intergral)
+            L_motor_speed=(intergral + porportional_gain * (direction*turning_rate/w))
+            R_motor_speed=-(intergral + porportional_gain * (direction*turning_rate/w))
             #print("found; direction=",direction,"turning_rate",turning_rate,"w",w)
             
         found = False
