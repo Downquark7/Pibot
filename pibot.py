@@ -24,7 +24,7 @@ speed_80 = 30
 
 forward_speed = 0
 running = True
-porportional_gain = 50
+porportional_gain = 20
 intergral_gain = 0
 derivative_gain = 0
 
