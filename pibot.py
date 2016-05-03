@@ -22,11 +22,11 @@ speed_70 = 50
 speed_80 = 0
 
 
-forward_speed = 50
+forward_speed = 50.0
 running = True
-porportional_gain = 0.3
-intergral_gain = 0.01
-derivative_gain = 0#.1
+porportional_gain = 30.0
+intergral_gain = 0.0
+derivative_gain = 0.0
 
 intergral = 0
 previous_error = 0
@@ -171,7 +171,7 @@ while True:
                 side = 0
             else:
                 side = 1
-            error = (direction*200/w)
+            error = 2.0*(direction/w)
             intergral = intergral + intergral_gain * error
             derivative = previous_error - error
             L_motor_speed=forward_speed + (intergral + porportional_gain * error + derivative_gain * derivative)
