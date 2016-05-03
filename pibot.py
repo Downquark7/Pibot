@@ -80,7 +80,7 @@ class MotorThread(threading.Thread):
             self.c_motor.run_forever(duty_cycle_sp = dc_clamp(scalestick(R_motor_speed)))
             #self.d_motor.run_forever(duty_cycle_sp = dc_clamp(other_speed))
             print(L_motor_speed, R_motor_speed)
-            #time.sleep(0.1)
+            time.sleep(0.01)
             #print("motor_speeds: ",L_motor_speed," | ",R_motor_speed)
         
         #self.a_motor.stop()
