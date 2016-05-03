@@ -18,13 +18,13 @@ w = 120
 h = 160
 L_motor_speed = 0
 R_motor_speed = 0
-speed_70 = 35
-speed_80 = 40
+speed_70 = 20
+speed_80 = 20
 
 
 forward_speed = 0
 running = True
-porportional_gain = 10
+porportional_gain = 30
 intergral_gain = 0
 derivative_gain = 0
 
@@ -172,7 +172,6 @@ while True:
             L_motor_speed=forward_speed + (intergral + porportional_gain * error + derivative_gain * derivative)
             R_motor_speed=forward_speed - (intergral + porportional_gain * error + derivative_gain * derivative)
             previous_error = error
-            ev3.Sound.beep()
             #print("found; direction=",direction,"turning_rate",turning_rate,"w",w)
             
         found = False
