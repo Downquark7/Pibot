@@ -24,9 +24,9 @@ speed_80 = 0
 
 forward_speed = 0
 running = True
-porportional_gain = 40
-intergral_gain = 0
-derivative_gain = 0
+porportional_gain = 40.00
+intergral_gain = 0.00
+derivative_gain = 0.00
 
 intergral = 0
 previous_error = 0
@@ -174,7 +174,7 @@ while True:
             L_motor_speed=forward_speed + (intergral + porportional_gain * error + derivative_gain * derivative)
             R_motor_speed=forward_speed - (intergral + porportional_gain * error + derivative_gain * derivative)
             previous_error = error
-            print(error*porportional_gain, intergral, derivative)
+            print(error*porportional_gain, intergral, derivative*derivative_gain)
             #print("found; direction=",direction,"turning_rate",turning_rate,"w",w)
             
         found = False
