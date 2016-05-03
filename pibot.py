@@ -148,7 +148,7 @@ while True:
             else:
                 L_motor_speed=speed_70
                 R_motor_speed=-speed_70
-        '''
+            '''
         elif area > 2000:
             direction = blob_x -w/2
             if direction < -w/4:
@@ -161,7 +161,7 @@ while True:
             else:
                 L_motor_speed=0
                 R_motor_speed=0
-        '''
+            '''
         else:
             direction = blob_x -w/2
             if direction <0:
