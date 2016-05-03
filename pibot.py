@@ -24,7 +24,7 @@ speed_80 = 30
 
 forward_speed = 0
 running = True
-porportional_gain = 20
+porportional_gain = 40
 intergral_gain = 0
 derivative_gain = 0
 
@@ -147,7 +147,7 @@ while True:
                 R_motor_speed=speed_70
             else:
                 L_motor_speed=speed_70
-                R_motor_speed=-speed_70
+                R_motor_speed=-speed_70'''
         elif area > 2000:
             direction = blob_x -w/2
             if direction < -w/4:
@@ -159,7 +159,7 @@ while True:
                 R_motor_speed=-speed_80
             else:
                 L_motor_speed=0
-                R_motor_speed=0
+                R_motor_speed=0'''
         else:
             direction = blob_x -w/2
             if direction <0:
