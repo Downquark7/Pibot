@@ -18,11 +18,11 @@ w = 120
 h = 160
 L_motor_speed = 0
 R_motor_speed = 0
-speed_70 = 20
+speed_70 = 30
 speed_80 = 0
 
 
-forward_speed = 20
+forward_speed = 30
 running = True
 porportional_gain = 0.4
 intergral_gain = 0.01
