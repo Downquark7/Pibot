@@ -18,8 +18,8 @@ w = 120
 h = 160
 L_motor_speed = 0
 R_motor_speed = 0
-speed_70 = 30
-speed_80 = 30
+speed_70 = 0
+speed_80 = 0
 
 
 forward_speed = 0
