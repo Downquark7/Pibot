@@ -24,9 +24,9 @@ speed_80 = 0
 
 forward_speed = 0
 running = True
-porportional_gain = 0.4
-intergral_gain = 0.00
-derivative_gain = 0.00
+porportional_gain = 0.5
+intergral_gain = 0.05
+derivative_gain = 0.1
 
 intergral = 0
 previous_error = 0
@@ -79,7 +79,7 @@ class MotorThread(threading.Thread):
             self.b_motor.run_forever(duty_cycle_sp = dc_clamp(scalestick(L_motor_speed)))
             self.c_motor.run_forever(duty_cycle_sp = dc_clamp(scalestick(R_motor_speed)))
             #self.d_motor.run_forever(duty_cycle_sp = dc_clamp(other_speed))
-            print(L_motor_speed, R_motor_speed)
+            #print(L_motor_speed, R_motor_speed)
             time.sleep(0.01)
             #print("motor_speeds: ",L_motor_speed," | ",R_motor_speed)
         
@@ -180,6 +180,7 @@ while True:
             #print("found; direction=",direction,"turning_rate",turning_rate,"w",w)
             
         found = False
+        time.sleep(0.01)
         #print("camera update")
     except KeyboardInterrupt:
         break
