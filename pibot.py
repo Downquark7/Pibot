@@ -26,7 +26,7 @@ forward_speed = 0
 running = True
 porportional_gain = 0.4
 intergral_gain = 0#.01
-derivative_gain = 0.1
+derivative_gain = 0.2
 
 intergral = 0
 previous_error = 0
