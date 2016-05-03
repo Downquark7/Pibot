@@ -19,14 +19,14 @@ h = 160
 L_motor_speed = 0
 R_motor_speed = 0
 speed_70 = 50
-speed_80 = 0
+speed_80 = 50
 
 
-forward_speed = 50.0
+forward_speed = 60.0
 running = True
-porportional_gain = 30.0
-intergral_gain = 0.0
-derivative_gain = 0.0
+porportional_gain = 0.6
+intergral_gain = 0.06
+derivative_gain = 0.06
 
 intergral = 0
 previous_error = 0
@@ -134,8 +134,8 @@ while True:
                 found=True
                 coords = cv2.moments(contours[largest])
                 blob_x = int(coords['m10']/coords['m00'])
-                blob_y = int(coords['m01']/coords['m00'])
-                diam = int(np.sqrt(area)/4)
+                #blob_y = int(coords['m01']/coords['m00'])
+                #diam = int(np.sqrt(area)/4)
                 
                 #cv2.circle(image,(blob_x,blob_y),diam,(0,255,0),1)
                 #cv2.line(image,(blob_x-2*diam,blob_y),(blob_x+2*diam,blob_y),(0,255,0),1)
@@ -151,33 +151,31 @@ while True:
             else:
                 L_motor_speed=speed_70
                 R_motor_speed=-speed_70
-            '''
         elif area > 2000:
             direction = blob_x -w/2
-            if direction < -w/4:
+            if direction < -w/5:
                 L_motor_speed=-speed_80
                 R_motor_speed=speed_80
                 pass
-            elif direction > w/4:
+            elif direction > w/5:
                 L_motor_speed=speed_80
                 R_motor_speed=-speed_80
             else:
                 L_motor_speed=0
                 R_motor_speed=0
-            '''
         else:
             direction = blob_x -w/2
             if direction <0:
                 side = 0
             else:
                 side = 1
-            error = 2.0*(direction/w)
+            error = blob_x
             intergral = intergral + intergral_gain * error
             derivative = previous_error - error
             L_motor_speed=forward_speed + (intergral + porportional_gain * error + derivative_gain * derivative)
             R_motor_speed=forward_speed - (intergral + porportional_gain * error + derivative_gain * derivative)
             previous_error = error
-            print(error*porportional_gain, intergral, derivative*derivative_gain)
+            #print(error*porportional_gain, intergral, derivative*derivative_gain)
             #print("found; direction=",direction,"turning_rate",turning_rate,"w",w)
             
         found = False
