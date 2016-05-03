@@ -144,6 +144,7 @@ while True:
         
         if not found:
             intergral = 0
+            previous_error = 0
             if side == 0:
                 L_motor_speed=-speed_70
                 R_motor_speed=speed_70
