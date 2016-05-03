@@ -134,7 +134,7 @@ while True:
                 blob_x = int(coords['m10']/coords['m00'])
                 blob_y = int(coords['m01']/coords['m00'])
                 diam = int(np.sqrt(area)/4)
-                print(blob_x, blob_y, diam)
+                
                 #cv2.circle(image,(blob_x,blob_y),diam,(0,255,0),1)
                 #cv2.line(image,(blob_x-2*diam,blob_y),(blob_x+2*diam,blob_y),(0,255,0),1)
                 #cv2.line(image,(blob_x,blob_y-2*diam),(blob_x,blob_y+2*diam),(0,255,0),1)
@@ -172,6 +172,7 @@ while True:
             L_motor_speed=forward_speed + (intergral + porportional_gain * error + derivative_gain * derivative)
             R_motor_speed=forward_speed - (intergral + porportional_gain * error + derivative_gain * derivative)
             previous_error = error
+            print(error*porportional_gain, intergral, derivative)
             #print("found; direction=",direction,"turning_rate",turning_rate,"w",w)
             
         found = False
