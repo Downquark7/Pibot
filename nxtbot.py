@@ -31,18 +31,13 @@ w = 640
 h = 480
 L_motor_speed = 0
 R_motor_speed = 0
-speed_70 = 50
-speed_80 = 50
-
-
-
 forward_speed = 0.0
 
 
-
-#modify these gain values for PID control
-area_gain = 3
-turn_gain = 3
+search_speed = 0
+y_gain = 0
+area_gain = 0
+turn_gain = 1
 
 
 def clamp(n, (minn, maxn)):
@@ -153,26 +148,26 @@ while True:
                 #cv2.putText(image,str(diam),(10,30),cv2.FONT_HERSHEY_PLAIN,1,[255,255,255])
                 cv2.line(image,(blob_x-2*diam,blob_y),(blob_x+2*diam,blob_y),(0,255,0),1)
                 cv2.line(image,(blob_x,blob_y-2*diam),(blob_x,blob_y+2*diam),(0,255,0),1)
+                boxx,boxy,boxw,boxh = cv2.boundingRect(cnt)
+                cv2.rectangle(image,(boxx,boxy),(boxx+boxw,boxy+boxh),(0,0,255),2)
             cv2.drawContours(image,contours,largest,(255,0,0),3)
             cv2.imshow("View",image)
         if not found:
-            intergral = 0
-            previous_error = 0
             if side == 0:
-                L_motor_speed=-speed_70
-                R_motor_speed=speed_70
+                L_motor_speed=-search_speed
+                R_motor_speed=search_speed
             else:
-                L_motor_speed=speed_70
-                R_motor_speed=-speed_70
+                L_motor_speed=search_speed
+                R_motor_speed=-search_speed
         else:
             direction = blob_x -w/2
-            if direction <0:
+            if direction < 0:
                 side = 0
             else:
                 side = 1
-            forward_speed=
-            L_motor_speed=forward_speed + direction * turn_gain / w
-            R_motor_speed=forward_speed - direction * turn_gain / w
+            forward_speed = ((h - (boxx + boxh + (h / 4))) * y_gain) + (area_gain * ((h*w*0.5) - area) / (h*w))
+            L_motor_speed = forward_speed + (direction * turn_gain * 2) / w
+            R_motor_speed = forward_speed - (direction * turn_gain * 2) / w
             if abs(L_motor_speed) < 10:
                 L_motor_speed = 0
             if abs(R_motor_speed) < 10:
