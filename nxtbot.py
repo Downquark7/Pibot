@@ -157,6 +157,8 @@ while True:
             cv2.drawContours(image,contours,largest,(255,0,0),3)
             cv2.imshow("View",image)
         if not found:
+            accumulated_turn = 0
+            turn_error = 0
             if side == 0:
                 L_motor_speed=-search_speed
                 R_motor_speed=search_speed
