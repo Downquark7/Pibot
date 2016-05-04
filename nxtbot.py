@@ -36,8 +36,8 @@ forward_speed = 0.0
 
 search_speed = int(input("search speed"))
 y_gain = int(input("y gain"))
-area_gain = int(input("area gain")
-turn_gain = int(input("turn gain")
+area_gain = int(input("area gain"))
+turn_gain = int(input("turn gain"))
 
 
 def clamp(n, (minn, maxn)):
