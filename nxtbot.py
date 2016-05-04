@@ -166,8 +166,9 @@ while True:
             else:
                 side = 1
             forward_speed = ((h - (boxx + boxh + (h / 4))) * y_gain) + (area_gain * ((h*w*0.5) - area) / (h*w))
-            L_motor_speed = forward_speed + ((area/h*w) * direction * turn_gain * 2) / w
-            R_motor_speed = forward_speed - ((area/h*w) * direction * turn_gain * 2) / w
+            print ((area/(h*w)) * direction * turn_gain * 2) / w
+            L_motor_speed = forward_speed + ((area/(h*w)) * direction * turn_gain * 2) / w
+            R_motor_speed = forward_speed - ((area/(h*w)) * direction * turn_gain * 2) / w
             if abs(L_motor_speed) < 10:
                 L_motor_speed = 0
             if abs(R_motor_speed) < 10:
