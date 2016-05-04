@@ -34,10 +34,10 @@ R_motor_speed = 0
 forward_speed = 0.0
 
 
-search_speed = 0
-y_gain = 0
-area_gain = 0
-turn_gain = 1
+search_speed = int(input("search speed"))
+y_gain = int(input("y gain"))
+area_gain = int(input("area gain")
+turn_gain = int(input("turn gain")
 
 
 def clamp(n, (minn, maxn)):
@@ -166,8 +166,8 @@ while True:
             else:
                 side = 1
             forward_speed = ((h - (boxx + boxh + (h / 4))) * y_gain) + (area_gain * ((h*w*0.5) - area) / (h*w))
-            L_motor_speed = forward_speed + (direction * turn_gain * 2) / w
-            R_motor_speed = forward_speed - (direction * turn_gain * 2) / w
+            L_motor_speed = forward_speed + ((area/h*w) * direction * turn_gain * 2) / w
+            R_motor_speed = forward_speed - ((area/h*w) * direction * turn_gain * 2) / w
             if abs(L_motor_speed) < 10:
                 L_motor_speed = 0
             if abs(R_motor_speed) < 10:
