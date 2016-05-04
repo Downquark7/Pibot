@@ -105,7 +105,7 @@ while (True):
 
 target=image_HSV[h/2][w/2]
 print target
-time.sleep(2)
+#time.sleep(2)
 
 # Main loop
 while True:
@@ -120,7 +120,7 @@ while True:
         binary = cv2.GaussianBlur(image,(5,5),0)
         binary = cv2.cvtColor(binary,cv2.COLOR_BGR2HSV)
         lower_pink = np.uint8([ac_clamp(target[0]-4),ac_clamp(target[1]-30),ac_clamp(target[2]-30)])
-        lower_pink = np.uint8([ac_clamp(target[0]+4),ac_clamp(target[1]+30),ac_clamp(target[2]+30)])
+        upper_pink = np.uint8([ac_clamp(target[0]+4),ac_clamp(target[1]+30),ac_clamp(target[2]+30)])
         kernel = np.ones((5,5),np.uint8)
         mask = cv2.inRange(binary,lower_pink,upper_pink)
         mask = cv2.erode(mask,kernel,iterations=1)
