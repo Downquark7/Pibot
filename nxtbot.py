@@ -41,9 +41,9 @@ running = True
 
 
 #modify these gain values for PID control
-porportional_gain = 1
-intergral_gain = 0.1
-derivative_gain = 0#.01
+porportional_gain = 0.2
+intergral_gain = 0.01
+derivative_gain = 0.01
 
 
 error = 0
