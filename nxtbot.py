@@ -169,7 +169,7 @@ while True:
             else:
                 L_motor_speed=speed_70
                 R_motor_speed=-speed_70
-        elif area > h*w/2:
+        elif area > h*w/3:
             direction = blob_x -w/2
             if direction < -w/5:
                 L_motor_speed=-speed_80
