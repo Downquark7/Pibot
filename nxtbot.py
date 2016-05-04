@@ -169,8 +169,8 @@ while True:
             #print("found; direction=",direction,"turning_rate",turning_rate,"w",w)
             
         found = False
-        motorb.run(power=L_motor_speed,regulated=True)
-        motorc.run(power=R_motor_speed,regulated=True)
+        motorb.run(power=int(L_motor_speed),regulated=True)
+        motorc.run(power=int(R_motor_speed),regulated=True)
         #time.sleep(0.01)
         #print("camera update")
     except KeyboardInterrupt:
