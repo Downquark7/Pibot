@@ -35,19 +35,14 @@ speed_70 = 50
 speed_80 = 50
 
 
-forward_speed = 50.0
+
+forward_speed = 0.0
 
 
 
 #modify these gain values for PID control
-porportional_gain = 0.2
-intergral_gain = 0#.01
-derivative_gain = 0.1
-
-
-error = 0
-intergral = 0
-previous_error = 0
+area_gain = 3
+turn_gain = 3
 
 
 def clamp(n, (minn, maxn)):
@@ -169,30 +164,19 @@ while True:
             else:
                 L_motor_speed=speed_70
                 R_motor_speed=-speed_70
-        elif area > h*w/4:
-            direction = blob_x -w/2
-            if direction < -w/5:
-                L_motor_speed=-speed_80
-                R_motor_speed=speed_80
-                pass
-            elif direction > w/5:
-                L_motor_speed=speed_80
-                R_motor_speed=-speed_80
-            else:
-                L_motor_speed=0
-                R_motor_speed=0
         else:
             direction = blob_x -w/2
             if direction <0:
                 side = 0
             else:
                 side = 1
-            error = direction
-            intergral = intergral + intergral_gain * error
-            derivative = previous_error - error
-            L_motor_speed=forward_speed + (intergral + porportional_gain * error + derivative_gain * derivative)
-            R_motor_speed=forward_speed - (intergral + porportional_gain * error + derivative_gain * derivative)
-            previous_error = error
+            forward_speed=
+            L_motor_speed=forward_speed + direction * turn_gain / w
+            R_motor_speed=forward_speed - direction * turn_gain / w
+            if abs(L_motor_speed) < 10:
+                L_motor_speed = 0
+            if abs(R_motor_speed) < 10:
+                R_motor_speed = 0
             #print(error*porportional_gain, intergral, derivative*derivative_gain)
             #print("found; direction=",direction,"turning_rate",turning_rate,"w",w)
             
