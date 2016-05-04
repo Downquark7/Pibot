@@ -34,9 +34,9 @@ R_motor_speed = 0
 forward_speed = 0.0
 
 
-search_speed = int(input("search speed"))
-y_gain = int(input("y gain"))
-area_gain = int(input("area gain"))
+search_speed = 0
+y_gain = 20
+area_gain = 20
 turn_gain = int(input("turn gain"))
 
 
@@ -66,7 +66,7 @@ def dc_clamp(value):
     return clamp(value,(-100,100))
 
 def ac_clamp(value):
-    return int(clamp(value,(0,255)))
+    return clamp(value,(0,255))
 
 #left_speed = 0
 #right_speed = 0
