@@ -170,7 +170,7 @@ while True:
             else:
                 side = 1
             forward_speed = ((h - (boxx + boxh + (h / 4))) * y_gain) + (area_gain * ((h*w*0.5) - area) / (h*w))
-            print (((area/(h*w)) * direction*turn_gain) * 2) / w), (((accumulated_turn * 2) / w), ((-turn_error * 2) / w)
+            print((((area/(h*w)) * direction*turn_gain) * 2) / w), (((accumulated_turn * 2) / w), ((-turn_error * 2) / w))
             L_motor_speed = forward_speed + ((((area/(h*w)) * direction * turn_gain - turn_error * overturn_gain + accumulated_turn) * 2) / w)
             R_motor_speed = forward_speed - ((((area/(h*w)) * direction * turn_gain - turn_error * overturn_gain + accumulated_turn) * 2) / w)
             turn_error = (direction * turn_gain * 2) / w
