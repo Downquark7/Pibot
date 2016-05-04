@@ -128,7 +128,7 @@ while True:
                 diam = int(np.sqrt(area)/4)
                 
                 cv2.circle(image,(blob_x,blob_y),diam,(0,255,0),1)
-                cv2.putText(image,str(diam),(10,30),cv2.FONT_HERSHEY_PLAIN,1,[255,255,255])
+                #cv2.putText(image,str(diam),(10,30),cv2.FONT_HERSHEY_PLAIN,1,[255,255,255])
                 cv2.line(image,(blob_x-2*diam,blob_y),(blob_x+2*diam,blob_y),(0,255,0),1)
                 cv2.line(image,(blob_x,blob_y-2*diam),(blob_x,blob_y+2*diam),(0,255,0),1)
             cv2.drawContours(image,contours,largest,(255,0,0),3)
@@ -166,7 +166,7 @@ while True:
             L_motor_speed=forward_speed + (intergral + porportional_gain * error + derivative_gain * derivative)
             R_motor_speed=forward_speed - (intergral + porportional_gain * error + derivative_gain * derivative)
             previous_error = error
-            print(error*porportional_gain, intergral, derivative*derivative_gain)
+            #print(error*porportional_gain, intergral, derivative*derivative_gain)
             #print("found; direction=",direction,"turning_rate",turning_rate,"w",w)
             
         found = False
