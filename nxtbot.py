@@ -39,7 +39,7 @@ y_gain = input("y gain")
 area_gain = input("area gain")
 turn_gain = 20000/input("object diameter in inches")
 overturn_gain = 2
-accumulated_gain = 0.1
+accumulated_gain = 0.2
 turn_error = 0
 accumulated_turn = 0
 
@@ -167,14 +167,19 @@ while True:
             direction = blob_x -w/2
             if direction < 0:
                 side = 0
+                if accumulated_turn > 0:
+                    accumulated_turn = 0
             else:
                 side = 1
+                if accumulated_turn > 0:
+                    accumulated_turn = 0
+            
             forward_speed = ((h - (boxx + boxh + (h / 4))) * y_gain) + (area_gain * ((h*w*0.5) - area) / (h*w))
             turn_error = (direction * turn_gain * 2) / w
-            accumulated_turn = accumulated_turn + (accumulated_gain * direction * turn_gain * 2) / w - turn_error
-            #print ((((area/(h*w)) * direction*turn_gain) * 2) / w), ((-turn_error * overturn_gain * 2) / w)
-            L_motor_speed = forward_speed + ((((area/(h*w)) * direction * turn_gain + accumulated_turn) * 2) / w)
-            R_motor_speed = forward_speed - ((((area/(h*w)) * direction * turn_gain + accumulated_turn) * 2) / w)
+            accumulated_turn = accumulated_turn + (accumulated_gain * direction * turn_gain * 2) / w
+            print ((((area/(h*w)) * direction*turn_gain) * 2) / w), (accumulated_turn*2)/w, (-turn_error*2)/w
+            L_motor_speed = forward_speed + ((((area/(h*w)) * direction * turn_gain + accumulated_turn - turn_error) * 2) / w)
+            R_motor_speed = forward_speed - ((((area/(h*w)) * direction * turn_gain + accumulated_turn - turn_error) * 2) / w)
 
             if abs(L_motor_speed) < 10:
                 L_motor_speed = 0
