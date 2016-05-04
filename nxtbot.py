@@ -39,7 +39,7 @@ y_gain = int(input("y gain"))
 area_gain = int(input("area gain"))
 turn_gain = int(input("turn gain (power / percent of FOV)"))
 overturn_gain = int(input("overturn gain")
-previous_error = 0
+turn_error = 0
 
 
 def clamp(n, (minn, maxn)):
@@ -169,9 +169,9 @@ while True:
                 side = 1
             forward_speed = ((h - (boxx + boxh + (h / 4))) * y_gain) + (area_gain * ((h*w*0.5) - area) / (h*w))
             print ((area/(h*w)) * direction * turn_gain * 2) / w
-            L_motor_speed = forward_speed + (((area/(h*w)) * direction * turn_gain * 2) / w - previous_error * overturn_gain)
-            R_motor_speed = forward_speed - (((area/(h*w)) * direction * turn_gain * 2) / w - previous_error * overturn_gain)
-            previous_error = (direction * turn_gain * 2) / w
+            L_motor_speed = forward_speed + (((area/(h*w)) * direction * turn_gain * 2) / w - turn_error * overturn_gain)
+            R_motor_speed = forward_speed - (((area/(h*w)) * direction * turn_gain * 2) / w - turn_error * overturn_gain)
+            turn_error = (direction * turn_gain * 2) / w
             if abs(L_motor_speed) < 10:
                 L_motor_speed = 0
             if abs(R_motor_speed) < 10:
