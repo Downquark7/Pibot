@@ -1,10 +1,15 @@
-import nxt
 
-print "connecting"
-brick = nxt.locator.find_one_brick()
-print brick
-motorb = nxt.motor.Motor(brick, nxt.motor.PORT_B)
-motorc = nxt.motor.Motor(brick, nxt.motor.PORT_C)
+move = False
+
+
+
+if move:
+    import nxt
+    print "connecting"
+    brick = nxt.locator.find_one_brick()
+    print brick
+    motorb = nxt.motor.Motor(brick, nxt.motor.PORT_B)
+    motorc = nxt.motor.Motor(brick, nxt.motor.PORT_C)
 
 
 import numpy as np
@@ -38,7 +43,7 @@ search_speed = 0
 y_gain = input("y gain")
 area_gain = input("area gain")
 turn_gain = 20000/input("object diameter in inches")
-overturn_gain = 10000
+overturn_gain = 10000.0
 accumulated_gain = 0.2
 turn_error = 0
 accumulated_turn = 0
@@ -177,7 +182,7 @@ while True:
                     accumulated_turn = 0
             
             forward_speed = ((h - (boxx + boxh + (h / 4))) * y_gain) + (area_gain * ((h*w*0.5) - area) / (h*w))
-            turn_error = (direction * 2) / w
+            turn_error = (direction * turn_gain) / w
             accumulated_turn = accumulated_turn + (accumulated_gain * direction * turn_gain * 2) / w
             print ((((area/(h*w)) * direction*turn_gain) * 2) / w), (accumulated_turn*2)/w, (-turn_error*2)/w
             L_motor_speed = forward_speed + ((((area/(h*w)) * direction * turn_gain + accumulated_turn - turn_error) * 2) / w)
@@ -191,8 +196,9 @@ while True:
             #print("found; direction=",direction,"turning_rate",turning_rate,"w",w)
             
         found = False
-        motorb.run(power=dc_clamp(L_motor_speed),regulated=True)
-        motorc.run(power=dc_clamp(R_motor_speed),regulated=True)
+        if move:
+            motorb.run(power=dc_clamp(L_motor_speed),regulated=True)
+            motorc.run(power=dc_clamp(R_motor_speed),regulated=True)
         #time.sleep(0.01)
         #print("camera update")
     except KeyboardInterrupt:
@@ -204,5 +210,6 @@ while True:
         #motorb.run(power=0,regulated=False)
         #motorc.run(power=0,regulated=False)
         break
-motorb.run(power=0,regulated=False)
-motorc.run(power=0,regulated=False)
+if move:
+    motorb.run(power=0,regulated=False)
+    motorc.run(power=0,regulated=False)
