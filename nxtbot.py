@@ -37,9 +37,11 @@ forward_speed = 0.0
 search_speed = 0
 y_gain = int(input("y gain"))
 area_gain = int(input("area gain"))
-turn_gain = int(input("turn gain"))
+turn_gain = int(input("turn gain (4000)"))
 overturn_gain = int(input("overturn gain"))
+accumulated_gain = int(input("accumulated gain")
 turn_error = 0
+accumulated_turn = 0
 
 
 def clamp(n, (minn, maxn)):
@@ -169,9 +171,10 @@ while True:
                 side = 1
             forward_speed = ((h - (boxx + boxh + (h / 4))) * y_gain) + (area_gain * ((h*w*0.5) - area) / (h*w))
             print ((((area/(h*w)) * direction * turn_gain - turn_error * overturn_gain) * 2) / w)
-            L_motor_speed = forward_speed + ((((area/(h*w)) * direction * turn_gain - turn_error * overturn_gain) * 2) / w)
-            R_motor_speed = forward_speed - ((((area/(h*w)) * direction * turn_gain - turn_error * overturn_gain) * 2) / w)
+            L_motor_speed = forward_speed + ((((area/(h*w)) * direction * turn_gain - turn_error * overturn_gain + accumulated_turn) * 2) / w)
+            R_motor_speed = forward_speed - ((((area/(h*w)) * direction * turn_gain - turn_error * overturn_gain + accumulated_turn) * 2) / w)
             turn_error = (direction * turn_gain * 2) / w
+            accumulated_turn = accumulated_gain * (direction * turn_gain * 2) / w
             if abs(L_motor_speed) < 10:
                 L_motor_speed = 0
             if abs(R_motor_speed) < 10:
