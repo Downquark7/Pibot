@@ -148,7 +148,7 @@ while True:
                 #cv2.putText(image,str(diam),(10,30),cv2.FONT_HERSHEY_PLAIN,1,[255,255,255])
                 cv2.line(image,(blob_x-2*diam,blob_y),(blob_x+2*diam,blob_y),(0,255,0),1)
                 cv2.line(image,(blob_x,blob_y-2*diam),(blob_x,blob_y+2*diam),(0,255,0),1)
-                boxx,boxy,boxw,boxh = cv2.boundingRect(cnt)
+                boxx,boxy,boxw,boxh = cv2.boundingRect(contours[largest])
                 cv2.rectangle(image,(boxx,boxy),(boxx+boxw,boxy+boxh),(0,0,255),2)
             cv2.drawContours(image,contours,largest,(255,0,0),3)
             cv2.imshow("View",image)
