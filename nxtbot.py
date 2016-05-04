@@ -86,7 +86,7 @@ target=[100,100,100]
 
 
 while (True):
-    success, image = my_camera.read()
+    success, image = cap.read()
     h, w, channels = image.shape
     #image = cv2.flip(image,-1)
     image = cv2.GaussianBlur(image,(5,5),0)
