@@ -197,4 +197,4 @@ while True:
         #motorc.run(power=0,regulated=False)
         break
 motorb.run(power=0,regulated=False)
-motorb.run(power=0,regulated=False)
+motorc.run(power=0,regulated=False)
