@@ -43,7 +43,7 @@ running = True
 #modify these gain values for PID control
 porportional_gain = 0.2
 intergral_gain = 0.01
-derivative_gain = 0.01
+derivative_gain = 0.1
 
 
 error = 0
@@ -76,6 +76,9 @@ def scalestick(value):
 def dc_clamp(value):
     return clamp(value,(-100,100))
 
+def ac_clamp(value):
+    return int(clamp(value,(0,255)))
+
 #left_speed = 0
 #right_speed = 0
 #lift_speed = 0
@@ -90,6 +93,12 @@ cap.set(4,h)
 time.sleep(2)
 #cap.set(15,-80.0)
 print(cap)
+target=[106,100,100]
+
+
+
+
+
 # Main loop
 while True:
     try:
@@ -102,8 +111,8 @@ while True:
         #image2 = cv2.cvtColor(image2,cv2.COLOR_RGB2BGR)
         binary = cv2.GaussianBlur(image,(5,5),0)
         binary = cv2.cvtColor(binary,cv2.COLOR_BGR2HSV)
-        lower_pink = np.uint8([105,50,50])
-        upper_pink = np.uint8([106,255,255])
+        lower_pink = np.uint8([ac_clamp(target[0]-2),ac_clamp(target[1]-20),ac_clamp(target[2]-20)])
+        lower_pink = np.uint8([ac_clamp(target[0]+2),ac_clamp(target[1]+20),ac_clamp(target[2]+20)])
         kernel = np.ones((5,5),np.uint8)
         mask = cv2.inRange(binary,lower_pink,upper_pink)
         mask = cv2.erode(mask,kernel,iterations=1)
@@ -142,7 +151,7 @@ while True:
             else:
                 L_motor_speed=speed_70
                 R_motor_speed=-speed_70
-        elif area > 2000:
+        elif area > h*w/2:
             direction = blob_x -w/2
             if direction < -w/5:
                 L_motor_speed=-speed_80
