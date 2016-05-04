@@ -100,7 +100,7 @@ while (True):
     #print(colour)
     # Esc key to stop, otherwise repeat after 1 milliseconds
     key_pressed = cv2.waitKey(1)
-    if key_pressed == 0:    
+    if key_pressed == 27:
         break
 
 target=colour 
