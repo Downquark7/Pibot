@@ -39,7 +39,7 @@ y_gain = int(input("y gain"))
 area_gain = int(input("area gain"))
 turn_gain = int(input("turn gain (4000)"))
 overturn_gain = int(input("overturn gain"))
-accumulated_gain = int(input("accumulated gain")
+accumulated_gain = int(input("accumulated gain"))
 turn_error = 0
 accumulated_turn = 0
 
