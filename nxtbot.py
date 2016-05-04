@@ -35,11 +35,11 @@ forward_speed = 0.0
 
 
 search_speed = 0
-y_gain = int(input("y gain"))
-area_gain = int(input("area gain"))
+y_gain = input("y gain")
+area_gain = input("area gain")
 turn_gain = 20000/input("object diameter in inches")
-overturn_gain = int(input("overturn gain"))
-accumulated_gain = int(input("accumulated gain"))
+overturn_gain = input("overturn gain")
+accumulated_gain = input("accumulated gain")
 turn_error = 0
 accumulated_turn = 0
 
@@ -170,7 +170,7 @@ while True:
             else:
                 side = 1
             forward_speed = ((h - (boxx + boxh + (h / 4))) * y_gain) + (area_gain * ((h*w*0.5) - area) / (h*w))
-            print((((area/(h*w)) * direction*turn_gain) * 2) / w), (((accumulated_turn * 2) / w), ((-turn_error * 2) / w))
+            print ((((area/(h*w)) * direction*turn_gain) * 2) / w), ((accumulated_turn * 2) / w), ((-turn_error * overturn_gain * 2) / w)
             L_motor_speed = forward_speed + ((((area/(h*w)) * direction * turn_gain - turn_error * overturn_gain + accumulated_turn) * 2) / w)
             R_motor_speed = forward_speed - ((((area/(h*w)) * direction * turn_gain - turn_error * overturn_gain + accumulated_turn) * 2) / w)
             turn_error = (direction * turn_gain * 2) / w
