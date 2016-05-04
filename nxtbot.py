@@ -103,8 +103,8 @@ while (True):
     if key_pressed == 27:
         break
 
-target=colour 
-print colour
+target=map(int,colour) 
+print target
 time.sleep(2)
 
 # Main loop
