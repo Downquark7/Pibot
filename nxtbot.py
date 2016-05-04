@@ -37,7 +37,7 @@ forward_speed = 0.0
 search_speed = 0
 y_gain = int(input("y gain"))
 area_gain = int(input("area gain"))
-turn_gain = int(input("turn gain))
+turn_gain = int(input("turn gain"))
 overturn_gain = int(input("overturn gain"))
 turn_error = 0
 
