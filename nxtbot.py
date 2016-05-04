@@ -21,7 +21,7 @@ import time
 #import evdev
 #import ev3dev.auto as ev3
 #ev3 = c.modules.ev3dev.auto
-import threading
+#import threading
 #threading = c.modules.threading
 #import time
 
@@ -36,13 +36,12 @@ speed_80 = 50
 
 
 forward_speed = 50.0
-running = True
 
 
 
 #modify these gain values for PID control
 porportional_gain = 0.2
-intergral_gain = 0.01
+intergral_gain = 0#.01
 derivative_gain = 0.1
 
 
@@ -93,11 +92,30 @@ cap.set(4,h)
 time.sleep(2)
 #cap.set(15,-80.0)
 print(cap)
-target=[106,100,100]
+target=[100,100,100]
 
 
+while (True):
+    success, image = my_camera.read()
+    h, w, channels = image.shape
+    #image = cv2.flip(image,-1)
+    image = cv2.GaussianBlur(image,(5,5),0)
+    color = map(int,image[h/2][w/2])
+    image_HSV = cv2.cvtColor(image,cv2.COLOR_BGR2HSV)
+    colour = str(image_HSV[h/2][w/2])
+    cv2.line(image,(0,h/2),(w-1,h/2),color)        
+    cv2.line(image,(w/2,0),(w/2,h-1),color)
+    cv2.putText(image,colour,(10,30),cv2.FONT_HERSHEY_PLAIN,1,[255,255,255])
+    cv2.imshow('View',image)
+    #print(colour)
+    # Esc key to stop, otherwise repeat after 1 milliseconds
+    key_pressed = cv2.waitKey(1)
+    if key_pressed == 0:    
+        break
 
-
+target=colour 
+print colour
+time.sleep(2)
 
 # Main loop
 while True:
@@ -141,7 +159,7 @@ while True:
                 cv2.line(image,(blob_x-2*diam,blob_y),(blob_x+2*diam,blob_y),(0,255,0),1)
                 cv2.line(image,(blob_x,blob_y-2*diam),(blob_x,blob_y+2*diam),(0,255,0),1)
             cv2.drawContours(image,contours,largest,(255,0,0),3)
-            cv2.imshow("Image",image)
+            cv2.imshow("View",image)
         if not found:
             intergral = 0
             previous_error = 0
@@ -184,9 +202,13 @@ while True:
         #time.sleep(0.01)
         #print("camera update")
     except KeyboardInterrupt:
+        #motorb.run(power=0,regulated=False)
+        #motorc.run(power=0,regulated=False)
         break
     key_pressed = cv2.waitKey(33)
     if key_pressed ==27:
-        running = False
-        time.sleep(1)
+        #motorb.run(power=0,regulated=False)
+        #motorc.run(power=0,regulated=False)
         break
+motorb.run(power=0,regulated=False)
+motorb.run(power=0,regulated=False)
