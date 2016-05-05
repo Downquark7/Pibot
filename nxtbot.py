@@ -183,11 +183,11 @@ while True:
             forward_speed = fwd_speed
             if boxx+boxh > h/3:
                 forward_speed=0
-            if area > h*w*0.3
+            if area > h*w*0.2:
                 forward_speed=0
             if boxx+boxh > h/4:
                 forward_speed = fwd_speed/-2
-            if area > h*w*0.4
+            if area > h*w*0.3:
                 forward_speed = fwd_speed/-2
             turn_error = (direction * turn_gain) / w
             accumulated_turn = accumulated_turn + (accumulated_gain * direction * turn_gain * 2) / w
