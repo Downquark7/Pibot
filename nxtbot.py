@@ -3,7 +3,7 @@ move = input("move (True/False)?")
 
 if move:
     import nxt
-    print "connecting"
+    print "connecting to brick..."
     brick = nxt.locator.find_one_brick()
     print brick
     motorb = nxt.motor.Motor(brick, nxt.motor.PORT_B)
@@ -43,7 +43,7 @@ time.sleep(2)
 print cap 
 _,image = cap.read()
 h, w, channels = image.shape
-print h, w
+print w, h
 
 fwd_speed = input("fwd speed")
 search_speed = input("search speed")
@@ -131,8 +131,8 @@ while True:
         #image2 = cv2.cvtColor(image2,cv2.COLOR_RGB2BGR)
         binary = cv2.GaussianBlur(image,(5,5),0)
         binary = cv2.cvtColor(binary,cv2.COLOR_BGR2HSV)
-        lower_pink = np.uint8([ac_clamp(target[0]-10),ac_clamp(target[1]-50),ac_clamp(target[2]-50)])
-        upper_pink = np.uint8([ac_clamp(target[0]+10),ac_clamp(target[1]+50),ac_clamp(target[2]+50)])
+        lower_pink = np.uint8([ac_clamp(target[0]-10),ac_clamp(target[1]-50),ac_clamp(target[2]-80)])
+        upper_pink = np.uint8([ac_clamp(target[0]+10),ac_clamp(target[1]+50),ac_clamp(target[2]+80)])
         kernel = np.ones((5,5),np.uint8)
         mask = cv2.inRange(binary,lower_pink,upper_pink)
         mask = cv2.erode(mask,kernel,iterations=1)
