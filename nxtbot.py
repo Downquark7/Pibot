@@ -186,11 +186,11 @@ while True:
             
             #forward_speed = ((h - (boxx + boxh + (h / 4))) * y_gain) + (area_gain * ((h*w*0.5) - area) / (h*w))
             forward_speed = fwd_speed
-            if boxx+boxh > h*0.8:
+            if boxx+boxh > h*0.7:
                 forward_speed=0
             if area > target_area*0.9:
                 forward_speed=0
-            if boxx+boxh > h*0.9:
+            if boxx+boxh > h*0.8:
                 forward_speed = fwd_speed/-2
             if area > target_area*1.1:
                 forward_speed = fwd_speed/-2
