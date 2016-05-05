@@ -190,7 +190,7 @@ while True:
                 forward_speed=0
             if area > target_area*0.9:
                 forward_speed=0
-            if boxy+boxh > h*0.8:
+            if boxy+boxh > h*0.9:
                 forward_speed = -(fwd_speed)
             if area > target_area*1.1:
                 forward_speed = -(fwd_speed)
@@ -200,7 +200,7 @@ while True:
             L_motor_speed = forward_speed + ((((area/(h*w)) * direction * turn_gain + accumulated_turn - turn_error) * 2) / w)
             R_motor_speed = forward_speed - ((((area/(h*w)) * direction * turn_gain + accumulated_turn - turn_error) * 2) / w)
             if not move:
-                print L_motor_speed, R_motor_speed, area, target_area, boxy+boxh, h*0.75
+                print L_motor_speed, R_motor_speed, area, target_area, boxy+boxh, h*0.8
                 time.sleep(0.1)
             if abs(L_motor_speed) < 10:
                 L_motor_speed = 0
