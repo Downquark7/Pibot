@@ -30,24 +30,24 @@ import time
 
 
 side = 0
-w = 640
-h = 480
 L_motor_speed = 0
 R_motor_speed = 0
 
 # This sets up the video capture
 cap = cv2.VideoCapture(0)
-cap.set(3,w)
-cap.set(4,h)
+cap.set(3,640)
+cap.set(4,480)
 #cap.set(15,-80.0)
+h, w, channels = cap.read().shape
 
-
-
-fwd_speed = input("forward speed")
+fwd_speed = input("fwd speed")
 search_speed = input("search speed")
 #y_gain = input("y gain")
 #area_gain = input("area gain")
-turn_gain = 20000/input("object diameter in inches")
+target_diam = input("object diameter in inches")
+turn_gain = 20000/target_diam
+area_target = ((3*(target_diam/2)*(target_diam/2))/100)*h*w
+y_target = input("y target (usually h if usual movement, h*h if to be ignored)")
 overturn_gain = 10000.0
 accumulated_gain = 0.2
 turn_error = 0
@@ -94,7 +94,7 @@ target=[100,100,100]
 
 while (True):
     success, image = cap.read()
-    h, w, channels = image.shape
+    #h, w, channels = image.shape
     #image = cv2.flip(image,-1)
     image = cv2.GaussianBlur(image,(5,5),0)
     color = map(int,image[h/2][w/2])
@@ -181,13 +181,13 @@ while True:
             
             #forward_speed = ((h - (boxx + boxh + (h / 4))) * y_gain) + (area_gain * ((h*w*0.5) - area) / (h*w))
             forward_speed = fwd_speed
-            if boxx+boxh > h/3:
+            if boxx+boxh > h*0.7:
                 forward_speed=0
-            if area > h*w*0.2:
+            if area > target_area*0.9:
                 forward_speed=0
-            if boxx+boxh > h/4:
+            if boxx+boxh > h*0.9:
                 forward_speed = fwd_speed/-2
-            if area > h*w*0.3:
+            if area > target_area*1.1:
                 forward_speed = fwd_speed/-2
             turn_error = (direction * turn_gain) / w
             accumulated_turn = accumulated_turn + (accumulated_gain * direction * turn_gain * 2) / w
