@@ -1,7 +1,5 @@
 
-move = True
-
-
+move = input("move (True/False)?")
 
 if move:
     import nxt
@@ -36,12 +34,12 @@ w = 640
 h = 480
 L_motor_speed = 0
 R_motor_speed = 0
-forward_speed = 0.0
+fwd_speed = input("forward speed")
 
 
-search_speed = 0
-y_gain = input("y gain")
-area_gain = input("area gain")
+search_speed = input("search speed")
+#y_gain = input("y gain")
+#area_gain = input("area gain")
 turn_gain = 20000/input("object diameter in inches")
 overturn_gain = 10000.0
 accumulated_gain = 0.2
@@ -181,13 +179,23 @@ while True:
                 if accumulated_turn > 0:
                     accumulated_turn = 0
             
-            forward_speed = ((h - (boxx + boxh + (h / 4))) * y_gain) + (area_gain * ((h*w*0.5) - area) / (h*w))
+            #forward_speed = ((h - (boxx + boxh + (h / 4))) * y_gain) + (area_gain * ((h*w*0.5) - area) / (h*w))
+            forward_speed = fwd_speed
+            if boxx+boxh > h/3:
+                forward_speed=0
+            if area > h*w*0.3
+                forward_speed=0
+            if boxx+boxh > h/4:
+                forward_speed = fwd_speed/-2
+            if area > h*w*0.4
+                forward_speed = fwd_speed/-2
             turn_error = (direction * turn_gain) / w
             accumulated_turn = accumulated_turn + (accumulated_gain * direction * turn_gain * 2) / w
-            print ((((area/(h*w)) * direction*turn_gain) * 2) / w), (accumulated_turn*2)/w, (-turn_error*2)/w
+            #print ((((area/(h*w)) * direction*turn_gain) * 2) / w), (accumulated_turn*2)/w, (-turn_error*2)/w
             L_motor_speed = forward_speed + ((((area/(h*w)) * direction * turn_gain + accumulated_turn - turn_error) * 2) / w)
             R_motor_speed = forward_speed - ((((area/(h*w)) * direction * turn_gain + accumulated_turn - turn_error) * 2) / w)
-
+            if not move:
+                print L_motor_speed, R_motor_speed
             if abs(L_motor_speed) < 10:
                 L_motor_speed = 0
             if abs(R_motor_speed) < 10:
