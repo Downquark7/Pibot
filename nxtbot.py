@@ -200,7 +200,8 @@ while True:
             L_motor_speed = forward_speed + ((((area/(h*w)) * direction * turn_gain + accumulated_turn - turn_error) * 2) / w)
             R_motor_speed = forward_speed - ((((area/(h*w)) * direction * turn_gain + accumulated_turn - turn_error) * 2) / w)
             if not move:
-                print L_motor_speed, R_motor_speed
+                print L_motor_speed, R_motor_speed, area, boxx+boxh
+                time.sleep(0.1)
             if abs(L_motor_speed) < 10:
                 L_motor_speed = 0
             if abs(R_motor_speed) < 10:
