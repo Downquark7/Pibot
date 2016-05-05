@@ -38,7 +38,11 @@ cap = cv2.VideoCapture(0)
 cap.set(3,640)
 cap.set(4,480)
 #cap.set(15,-80.0)
+print "waiting for camera..."
+time.sleep(2)
+print cap 
 h, w, channels = cap.read().shape
+print h, w
 
 fwd_speed = input("fwd speed")
 search_speed = input("search speed")
@@ -88,7 +92,7 @@ def ac_clamp(value):
 #other_speed = 0
 
 
-print(cap)
+
 target=[100,100,100]
 
 
