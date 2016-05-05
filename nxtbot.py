@@ -51,7 +51,7 @@ search_speed = input("search speed")
 #area_gain = input("area gain")
 target_diam = input("object diameter in inches")
 turn_gain = 20000/target_diam
-target_area = ((3*(target_diam/2)*(target_diam/2))/100)*h*w
+target_area = (((target_diam*target_diam)/100)*h*w)
 y_target = h
 overturn_gain = 10000.0
 accumulated_gain = 0.2
@@ -207,7 +207,6 @@ while True:
                 R_motor_speed = 0
             #print(error*porportional_gain, intergral, derivative*derivative_gain)
             #print("found; direction=",direction,"turning_rate",turning_rate,"w",w)
-            
         found = False
         if move:
             motorb.run(power=dc_clamp(L_motor_speed),regulated=True)
