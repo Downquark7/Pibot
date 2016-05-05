@@ -41,8 +41,8 @@ cap.set(4,480)
 print "waiting for camera..."
 time.sleep(2)
 print cap 
-_,frame = cap.read()
-h, w, channels = cap.shape
+_,image = cap.read()
+h, w, channels = image.shape
 print h, w
 
 fwd_speed = input("fwd speed")
