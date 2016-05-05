@@ -34,9 +34,16 @@ w = 640
 h = 480
 L_motor_speed = 0
 R_motor_speed = 0
+
+# This sets up the video capture
+cap = cv2.VideoCapture(0)
+cap.set(3,w)
+cap.set(4,h)
+#cap.set(15,-80.0)
+
+
+
 fwd_speed = input("forward speed")
-
-
 search_speed = input("search speed")
 #y_gain = input("y gain")
 #area_gain = input("area gain")
@@ -81,13 +88,6 @@ def ac_clamp(value):
 #other_speed = 0
 
 
-
-# This sets up the video capture
-cap = cv2.VideoCapture(0)
-cap.set(3,w)
-cap.set(4,h)
-time.sleep(2)
-#cap.set(15,-80.0)
 print(cap)
 target=[100,100,100]
 
