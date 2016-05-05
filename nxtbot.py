@@ -52,7 +52,7 @@ search_speed = input("search speed")
 target_diam = input("object diameter in inches")
 turn_gain = 20000/target_diam
 target_area = ((3*(target_diam/2)*(target_diam/2))/100)*h*w
-y_target = input("y target (usually h if usual movement, h*h if to be ignored)")
+y_target = h
 overturn_gain = 10000.0
 accumulated_gain = 0.2
 turn_error = 0
@@ -186,7 +186,7 @@ while True:
             
             #forward_speed = ((h - (boxx + boxh + (h / 4))) * y_gain) + (area_gain * ((h*w*0.5) - area) / (h*w))
             forward_speed = fwd_speed
-            if boxx+boxh > h*0.7:
+            if boxx+boxh > h*0.8:
                 forward_speed=0
             if area > target_area*0.9:
                 forward_speed=0
