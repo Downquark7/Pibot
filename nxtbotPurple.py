@@ -1,21 +1,3 @@
-Skip to content
-This repository
-Search
-Pull requests
-Issues
-Gist
- @Downquark7
- Unwatch 1
-  Star 0
-  Fork 1 Downquark7/Pibot
-forked from MagnusBordewich/Pibot
- Code  Pull requests 0  Wiki  Pulse  Graphs  Settings
-Branch: master Find file Copy path
-Pibot/nxtbot.py
-6c40a1e  3 minutes ago
-@Downquark7 Downquark7 Update nxtbot.py
-1 contributor
-RawBlameHistory    282 lines (253 sloc)  9.81 KB
 
 move = input("move (True/False)?")
 visuals = input("display images (True/False)?")
@@ -50,7 +32,7 @@ import time
 
 h_tolerance = 10
 s_tolerance = 30
-v_tolerance = 30
+v_tolerance = 60
 
 side = 0
 L_motor_speed = 0
@@ -119,7 +101,7 @@ def ac_clamp(value):
 
 target=[100,100,100]
 
-
+'''
 while (True):
     try:
         success, image = cap.read()
@@ -181,8 +163,8 @@ while (True):
             break
     except KeyboardInterrupt:
         break
-
-target=image_HSV[h/2][w/2]
+'''
+target = [115,60,120]
 print target
 time.sleep(2)
 
