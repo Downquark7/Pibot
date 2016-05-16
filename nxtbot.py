@@ -119,6 +119,11 @@ while (True):
         contours, hierarchy = cv2.findContours(mask,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
         blob_x = w/2
         area = 0
+        image = cv2.GaussianBlur(image,(5,5),0)
+        color = map(int,image[h/2][w/2])
+        image_HSV = cv2.cvtColor(image,cv2.COLOR_BGR2HSV)
+        target=image_HSV[h/2][w/2]
+        colour = str(image_HSV[h/2][w/2])
         if len(contours)>0:
             largest = 0
             area = cv2.contourArea(contours[0])
@@ -144,12 +149,7 @@ while (True):
                     cv2.rectangle(image,(boxx,boxy),(boxx+boxw,boxy+boxh),(0,0,255),2)
             if visuals:
                 cv2.drawContours(image,contours,largest,(255,0,0),3)
-        
-        image = cv2.GaussianBlur(image,(5,5),0)
-        color = map(int,image[h/2][w/2])
-        image_HSV = cv2.cvtColor(image,cv2.COLOR_BGR2HSV)
-        target=image_HSV[h/2][w/2]
-        colour = str(image_HSV[h/2][w/2])
+                
         if visuals:
             cv2.line(image,(0,h/2),(w-1,h/2),color)        
             cv2.line(image,(w/2,0),(w/2,h-1),color)
