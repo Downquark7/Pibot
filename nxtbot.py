@@ -103,6 +103,44 @@ while (True):
         success, image = cap.read()
         #h, w, channels = image.shape
         #image = cv2.flip(image,-1)
+        
+        binary = cv2.GaussianBlur(image,(5,5),0)
+        binary = cv2.cvtColor(binary,cv2.COLOR_BGR2HSV)
+        lower_pink = np.uint8([ac_clamp(target[0]-10),ac_clamp(target[1]-30),ac_clamp(target[2]-30)])
+        upper_pink = np.uint8([ac_clamp(target[0]+10),ac_clamp(target[1]+30),ac_clamp(target[2]+30)])
+        kernel = np.ones((5,5),np.uint8)
+        mask = cv2.inRange(binary,lower_pink,upper_pink)
+        mask = cv2.erode(mask,kernel,iterations=1)
+        mask = cv2.dilate(mask,kernel,iterations=1)
+        contours, hierarchy = cv2.findContours(mask,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
+        blob_x = w/2
+        area = 0
+        if len(contours)>0:
+            largest = 0
+            area = cv2.contourArea(contours[0])
+            if len(contours)>1:
+                for i in range(1,len(contours)):
+                    temp_area = cv2.contourArea(contours[i])
+                    if temp_area>area:
+                        area=temp_area
+                        largest = i
+            if area > 100:
+                found=True
+                coords = cv2.moments(contours[largest])
+                blob_x = int(coords['m10']/coords['m00'])
+                blob_y = int(coords['m01']/coords['m00'])
+                diam = int(np.sqrt(area)/4)
+                if visuals:
+                    cv2.circle(image,(blob_x,blob_y),diam,(0,255,0),1)
+                    #cv2.putText(image,str(diam),(10,30),cv2.FONT_HERSHEY_PLAIN,1,[255,255,255])
+                    cv2.line(image,(blob_x-2*diam,blob_y),(blob_x+2*diam,blob_y),(0,255,0),1)
+                    cv2.line(image,(blob_x,blob_y-2*diam),(blob_x,blob_y+2*diam),(0,255,0),1)
+                boxx,boxy,boxw,boxh = cv2.boundingRect(contours[largest])
+                if visuals:
+                    cv2.rectangle(image,(boxx,boxy),(boxx+boxw,boxy+boxh),(0,0,255),2)
+            if visuals:
+                cv2.drawContours(image,contours,largest,(255,0,0),3)
+        
         image = cv2.GaussianBlur(image,(5,5),0)
         color = map(int,image[h/2][w/2])
         image_HSV = cv2.cvtColor(image,cv2.COLOR_BGR2HSV)
@@ -113,7 +151,7 @@ while (True):
             cv2.putText(image,colour,(10,30),cv2.FONT_HERSHEY_PLAIN,1,[255,255,255])
             cv2.imshow('View',image)
         else:
-            print(colour)
+            print(colour, diam)
         # Esc key to stop, otherwise repeat after 1 milliseconds
         key_pressed = cv2.waitKey(33)
         if key_pressed == 27:
