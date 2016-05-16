@@ -1,6 +1,6 @@
 
-move = input("move (True/False)?")
-visuals = input("display images (True/False)?")
+move = True #input("move (True/False)?")
+visuals = False #input("display images (True/False)?")
 
 if move:
     import nxt
@@ -46,11 +46,11 @@ _,image = cap.read()
 h, w, channels = image.shape
 print w, h
 
-fwd_speed = input("fwd speed")
-search_speed = input("search speed")
+fwd_speed = 0 #input("fwd speed")
+search_speed = 0 #input("search speed")
 #y_gain = input("y gain")
 #area_gain = input("area gain")
-target_diam = input("object diameter in inches")
+target_diam = 20 #input("object diameter in inches")
 turn_gain = 20000/target_diam
 target_area = (((3.14*(target_diam/2)*(target_diam/2))/500)*h*w)
 y_target = h
@@ -115,6 +115,7 @@ while (True):
         else:
             print(colour)
         # Esc key to stop, otherwise repeat after 1 milliseconds
+        break
         key_pressed = cv2.waitKey(33)
         if key_pressed == 27:
             break
