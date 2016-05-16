@@ -30,9 +30,9 @@ import time
 #import time
 
 
-h_tolerance = 2
-s_tolerance = 50
-v_tolerance = 50
+h_tolerance = 10
+s_tolerance = 30
+v_tolerance = 30
 
 side = 0
 L_motor_speed = 0
