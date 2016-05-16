@@ -279,6 +279,3 @@ while True:
 if move:
     motorb.run(power=0,regulated=False)
     motorc.run(power=0,regulated=False)
-Status API Training Shop Blog About
-© 2016 GitHub, Inc. Terms Privacy Security Contact Help
-Alt+MAlt+N
