@@ -147,6 +147,7 @@ while (True):
         
         image = cv2.GaussianBlur(image,(5,5),0)
         color = map(int,image[h/2][w/2])
+        target=image_HSV[h/2][w/2]
         image_HSV = cv2.cvtColor(image,cv2.COLOR_BGR2HSV)
         colour = str(image_HSV[h/2][w/2])
         if visuals:
