@@ -54,10 +54,10 @@ search_speed = input("search speed")
 #y_gain = input("y gain")
 #area_gain = input("area gain")
 target_diam = input("object diameter in inches")
-turn_gain = 14000/target_diam
+turn_gain = 10000/target_diam
 target_area = (((3.14*(target_diam/2)*(target_diam/2))/500)*h*w)
 y_target = h
-overturn_gain = 20000.0
+overturn_gain = 10000.0
 accumulated_gain = 0.2
 turn_error = 0
 accumulated_turn = 0
@@ -246,11 +246,11 @@ while True:
                 forward_speed = -(fwd_speed)
             if area > target_area*1.1:
                 forward_speed = -(fwd_speed)
-            turn_error = (direction * turn_gain) / w
-            accumulated_turn = accumulated_turn + (accumulated_gain * direction * turn_gain * 2) / w
-            #print ((((area/(h*w)) * direction*turn_gain) * 2) / w), (accumulated_turn*2)/w, (-turn_error*2)/w
-            L_motor_speed = forward_speed + ((((area/(h*w)) * direction * turn_gain + accumulated_turn - turn_error) * 2) / w)
-            R_motor_speed = forward_speed - ((((area/(h*w)) * direction * turn_gain + accumulated_turn - turn_error) * 2) / w)
+            turn_error = (direction * turn_gain)
+            accumulated_turn = accumulated_turn + (accumulated_gain * direction * turn_gain * 2)
+            print (((area/(h*w)) * (direction * turn_gain) * 2) / w), (((area/(h*w)) * (accumulated_turn) * 2) / w), (((area/(h*w)) * (- turn_error) * 2) / w)
+            L_motor_speed = forward_speed + (((area/(h*w)) * (direction * turn_gain + accumulated_turn - turn_error) * 2) / w)
+            R_motor_speed = forward_speed - (((area/(h*w)) * (direction * turn_gain + accumulated_turn - turn_error) * 2) / w)
             if not move:
                 print L_motor_speed, R_motor_speed, area, target_area*0.9, boxy+boxh, h*0.8
                 time.sleep(0.1)
