@@ -58,7 +58,7 @@ target_diam = input("object diameter in inches")
 turn_gain = 14000/target_diam
 target_area = (((3.14*(target_diam/2)*(target_diam/2))/500)*h*w)
 y_target = h
-overturn_gain = 14000.0
+overturn_gain = 20000.0
 accumulated_gain = 0.5
 turn_error = 0
 accumulated_turn = 0
@@ -215,8 +215,8 @@ while True:
             if visuals:
                 cv2.drawContours(image,contours,largest,(255,0,0),3)
                 cv2.imshow("View",image)
-            else:
-                print blob_x, blob_y, diam
+            
+            print blob_x, blob_y, diam
         if not found:
             accumulated_turn = 0
             turn_error = 0
