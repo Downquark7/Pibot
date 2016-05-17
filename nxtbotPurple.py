@@ -44,7 +44,6 @@ cap.set(3,320)
 cap.set(4,240)
 #cap.set(15,-80.0)
 print "waiting for camera..."
-time.sleep(2)
 print cap 
 _,image = cap.read()
 h, w, channels = image.shape
@@ -59,7 +58,7 @@ turn_gain = 14000/target_diam
 target_area = (((3.14*(target_diam/2)*(target_diam/2))/500)*h*w)
 y_target = h
 overturn_gain = 20000.0
-accumulated_gain = 0.5
+accumulated_gain = 0.2
 turn_error = 0
 accumulated_turn = 0
 
@@ -215,8 +214,8 @@ while True:
             if visuals:
                 cv2.drawContours(image,contours,largest,(255,0,0),3)
                 cv2.imshow("View",image)
-            
-            print blob_x, blob_y, diam
+            else:
+                print blob_x, blob_y, diam
         if not found:
             accumulated_turn = 0
             turn_error = 0
