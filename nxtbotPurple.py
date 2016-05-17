@@ -1,6 +1,6 @@
 
-move = input("move (True/False)?")
-visuals = input("display images (True/False)?")
+move = 1#input("move (True/False)?")
+visuals = 1#input("display images (True/False)?")
 
 if move:
     import nxt
@@ -49,11 +49,11 @@ _,image = cap.read()
 h, w, channels = image.shape
 print w, h
 
-fwd_speed = input("fwd speed")
-search_speed = input("search speed")
+fwd_speed = 0#input("fwd speed")
+search_speed = 0#input("search speed")
 #y_gain = input("y gain")
 #area_gain = input("area gain")
-target_diam = input("object diameter in inches")
+target_diam = 20#input("object diameter in inches")
 turn_gain = target_diam/10000
 target_area = (((3.14*(target_diam/2)*(target_diam/2))/500)*h*w)
 y_target = h
