@@ -55,11 +55,11 @@ search_speed = input("search speed")
 #y_gain = input("y gain")
 #area_gain = input("area gain")
 target_diam = input("object diameter in inches")
-turn_gain = 16000/target_diam
+turn_gain = 14000/target_diam
 target_area = (((3.14*(target_diam/2)*(target_diam/2))/500)*h*w)
 y_target = h
-overturn_gain = 10000.0
-accumulated_gain = 0.2
+overturn_gain = 14000.0
+accumulated_gain = 0.5
 turn_error = 0
 accumulated_turn = 0
 
