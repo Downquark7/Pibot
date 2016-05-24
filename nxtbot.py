@@ -62,6 +62,7 @@ overturn_gain = 10000.0
 accumulated_gain = 0.2
 turn_error = 0
 accumulated_turn = 0
+diam = 0
 
 
 def clamp(n, (minn, maxn)):
