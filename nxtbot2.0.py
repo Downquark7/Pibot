@@ -142,7 +142,7 @@ while True:
                 cv2.drawContours(image,contours,largest,(255,0,0),3)
                 cv2.imshow("View",image)
             else:
-                print blob_x, blob_y, diam
+                #print blob_x, blob_y, diam
         if not found:
             accumulated_turn = 0
             turn_error = 0
@@ -174,7 +174,7 @@ while True:
             #print ((((area/(h*w)) * direction*turn_gain) * 2) / w), (accumulated_turn*2)/w, (-turn_error*2)/w
             L_motor_speed = forward_speed + (direction * turn_gain + accumulated_turn - turn_error)
             R_motor_speed = forward_speed - (direction * turn_gain + accumulated_turn - turn_error)
-            print L_motor_speed, R_motor_speed
+            print L_motor_speed, R_motor_speed, direction
             if not move:
                 print L_motor_speed, R_motor_speed, boxy+boxh, h*0.8
                 time.sleep(0.1)
