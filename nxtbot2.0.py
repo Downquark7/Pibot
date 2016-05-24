@@ -172,9 +172,9 @@ while True:
             turn_error = (direction * turn_gain)
             accumulated_turn = accumulated_turn + (accumulated_gain * direction)
             #print ((((area/(h*w)) * direction*turn_gain) * 2) / w), (accumulated_turn*2)/w, (-turn_error*2)/w
-            L_motor_speed = forward_speed + (direction * turn_gain + accumulated_turn - turn_error)
-            R_motor_speed = forward_speed - (direction * turn_gain + accumulated_turn - turn_error)
-            print L_motor_speed, R_motor_speed, direction
+            L_motor_speed = forward_speed + (direction * turn_gain + accumulated_turn)# - turn_error)
+            R_motor_speed = forward_speed - (direction * turn_gain + accumulated_turn)# - turn_error)
+            print L_motor_speed, R_motor_speed, direction, direction * turn_gain, accumulated_turn, -turn_error
             if not move:
                 print L_motor_speed, R_motor_speed, boxy+boxh, h*0.8
                 time.sleep(0.1)
