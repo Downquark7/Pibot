@@ -57,7 +57,8 @@ accumulated_gain = 0
 turn_error = 0
 accumulated_turn = 0
 diam = 0
-
+blob_x = w/2
+blob_y = h/2
 
 def clamp(n, (minn, maxn)):
     """
