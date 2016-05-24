@@ -124,7 +124,7 @@ while True:
                     if temp_area>area:
                         area=temp_area
                         largest = i
-            if area > 100:
+            if area > 4:
                 found=True
                 coords = cv2.moments(contours[largest])
                 blob_x = int(coords['m10']/coords['m00'])
