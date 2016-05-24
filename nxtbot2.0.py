@@ -50,12 +50,12 @@ fwd_speed = 0#input("fwd speed")
 search_speed = 0#input("search speed")
 #y_gain = input("y gain")
 #area_gain = input("area gain")
-turn_gain = 50.0/w
+turn_gain = 100.0/w
 y_target = h
 overturn_gain = 0.0
 accumulated_gain = 0
 turn_error = 0
-accumulated_turn = 1.0
+accumulated_turn = 0
 diam = 0
 blob_x = w/2
 blob_y = h/2
@@ -172,8 +172,8 @@ while True:
             turn_error = (direction * turn_gain)
             accumulated_turn = accumulated_turn + (accumulated_gain * direction)
             #print ((((area/(h*w)) * direction*turn_gain) * 2) / w), (accumulated_turn*2)/w, (-turn_error*2)/w
-            L_motor_speed = forward_speed + (direction * turn_gain + accumulated_turn)# - turn_error)
-            R_motor_speed = forward_speed - (direction * turn_gain + accumulated_turn)# - turn_error)
+            L_motor_speed = forward_speed + (direction * turn_gain + accumulated_turn - turn_error)
+            R_motor_speed = forward_speed - (direction * turn_gain + accumulated_turn - turn_error)
             print L_motor_speed, R_motor_speed, direction, direction * turn_gain, accumulated_turn, -turn_error
             if not move:
                 print L_motor_speed, R_motor_speed, boxy+boxh, h*0.8
