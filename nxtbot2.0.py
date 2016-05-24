@@ -141,7 +141,7 @@ while True:
             if visuals:
                 cv2.drawContours(image,contours,largest,(255,0,0),3)
                 cv2.imshow("View",image)
-            else:
+            #else:
                 #print blob_x, blob_y, diam
         if not found:
             accumulated_turn = 0
