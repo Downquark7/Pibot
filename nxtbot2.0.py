@@ -11,6 +11,7 @@ if move:
     motorc = nxt.motor.Motor(brick, nxt.motor.PORT_C)
 
 
+
 import numpy as np
 #np = c.modules.numpy
 #import copy
